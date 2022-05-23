@@ -1,0 +1,1257 @@
+{
+	"domain": "default",
+	"ehrUid": "84103d1c-9471-4a96-b44f-d7ef61c0f79f",
+	"operationType": "create",
+	"eventName": "t_case_record_reference_forms_112_025_reportQueue",
+	"compositionId": "273b2c3a-e14b-4ced-be66-a0e0f161ed72::default::2",
+	"newResults": [
+		{
+			"version_": "openEHR-EHR-COMPOSITION.t_case_record_reference_forms_112_025.v1",
+			"login": "MRyabov",
+			"documentCommittedDate": "2022-05-06T06:34:17.40772+03:00",
+			"patientId": "10603971",
+			"composition_": {
+				"@class": "COMPOSITION",
+				"name": {
+					"@class": "DV_TEXT",
+					"value": "Выписка из истории болезни (форма 112/у и 025/у)"
+				},
+				"uid": {
+					"@class": "OBJECT_VERSION_ID",
+					"value": "273b2c3a-e14b-4ced-be66-a0e0f161ed72::default::2"
+				},
+				"archetype_details": {
+					"@class": "ARCHETYPED",
+					"archetype_id": {
+						"@class": "ARCHETYPE_ID",
+						"value": "openEHR-EHR-COMPOSITION.report.v1"
+					},
+					"template_id": {
+						"@class": "TEMPLATE_ID",
+						"value": "openEHR-EHR-COMPOSITION.t_case_record_reference_forms_112_025.v1"
+					},
+					"rm_version": "1.0.4"
+				},
+				"archetype_node_id": "openEHR-EHR-COMPOSITION.report.v1",
+				"language": {
+					"@class": "CODE_PHRASE",
+					"terminology_id": {
+						"@class": "TERMINOLOGY_ID",
+						"value": "ISO_639-1"
+					},
+					"code_string": "ru"
+				},
+				"territory": {
+					"@class": "CODE_PHRASE",
+					"terminology_id": {
+						"@class": "TERMINOLOGY_ID",
+						"value": "ISO_3166-1"
+					},
+					"code_string": "RU"
+				},
+				"category": {
+					"@class": "DV_CODED_TEXT",
+					"value": "event",
+					"defining_code": {
+						"@class": "CODE_PHRASE",
+						"terminology_id": {
+							"@class": "TERMINOLOGY_ID",
+							"value": "openehr"
+						},
+						"code_string": "433"
+					}
+				},
+				"composer": {
+					"@class": "PARTY_IDENTIFIED",
+					"external_ref": {
+						"@class": "PARTY_REF",
+						"id": {
+							"@class": "GENERIC_ID",
+							"value": "02314899342",
+							"scheme": "undefined"
+						},
+						"namespace": "Парус",
+						"type": "ANY"
+					},
+					"name": "Рябов Михаил Владимирович"
+				},
+				"context": {
+					"@class": "EVENT_CONTEXT",
+					"start_time": {
+						"@class": "DV_DATE_TIME",
+						"value": "2022-05-06T06:32:51+03:00"
+					},
+					"end_time": {
+						"@class": "DV_DATE_TIME",
+						"value": "2022-05-06T06:34:15+03:00"
+					},
+					"setting": {
+						"@class": "DV_CODED_TEXT",
+						"value": "other care",
+						"defining_code": {
+							"@class": "CODE_PHRASE",
+							"terminology_id": {
+								"@class": "TERMINOLOGY_ID",
+								"value": "openehr"
+							},
+							"code_string": "238"
+						}
+					},
+					"other_context": {
+						"@class": "ITEM_TREE",
+						"name": {
+							"@class": "DV_TEXT",
+							"value": "*Tree(en)"
+						},
+						"archetype_node_id": "at0001",
+						"items": [
+							{
+								"@class": "CLUSTER",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Подробности контекста"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-CLUSTER.composition_context_details_simi.v0"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-CLUSTER.composition_context_details_simi.v0",
+								"items": [
+									{
+										"@class": "ELEMENT",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "ИД события"
+										},
+										"archetype_node_id": "at0035",
+										"value": {
+											"@class": "DV_IDENTIFIER",
+											"issuer": "undefined",
+											"assigner": "undefined",
+											"id": "7030",
+											"type": "Идентификатор События"
+										}
+									},
+									{
+										"@class": "ELEMENT",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "ИД документа"
+										},
+										"archetype_node_id": "at0073",
+										"value": {
+											"@class": "DV_IDENTIFIER",
+											"issuer": "undefined",
+											"assigner": "undefined",
+											"id": "84103d1c-9471-4a96-b44f-d7ef61c0f79f",
+											"type": "Идентификатор документа СИМИ"
+										}
+									},
+									{
+										"@class": "ELEMENT",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "ИД пациента"
+										},
+										"archetype_node_id": "at0075",
+										"value": {
+											"@class": "DV_IDENTIFIER",
+											"issuer": "undefined",
+											"assigner": "undefined",
+											"id": "10603971",
+											"type": "Идентификатор пациента"
+										}
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Автор информации"
+										},
+										"archetype_node_id": "at0036",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Идентификатор исполнения должности медработника"
+												},
+												"archetype_node_id": "at0092",
+												"value": {
+													"@class": "DV_IDENTIFIER",
+													"issuer": "undefined",
+													"assigner": "undefined",
+													"id": "213784412",
+													"type": "EMIAS"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование должности"
+												},
+												"archetype_node_id": "at0037",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Врач-онколог"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование структурного подразделения"
+												},
+												"archetype_node_id": "at0038",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Администрация"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование филиала"
+												},
+												"archetype_node_id": "at0039",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Государственное бюджетное учреждение здравоохранения города Москвы \"Городская клиническая больница № 31 Департамента здравоохранения города Москвы\""
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование юридического лица"
+												},
+												"archetype_node_id": "at0040",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "ГБУЗ ГКБ № 31 ДЗМ"
+												}
+											}
+										]
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Структура медицинской организации"
+										},
+										"archetype_node_id": "at0014",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "ИД объекта"
+												},
+												"archetype_node_id": "at0015",
+												"value": {
+													"@class": "DV_IDENTIFIER",
+													"issuer": "issuer",
+													"assigner": "assigner",
+													"id": "10492228",
+													"type": "type"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Тип объекта"
+												},
+												"archetype_node_id": "at0018",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "амбулаторно-поликлинический центр",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0019"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование"
+												},
+												"archetype_node_id": "at0016",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Государственное бюджетное учреждение здравоохранения города Москвы «Городская клиническая больница имени С.П. Боткина Департамента здравоохранения города Москвы»"
+												}
+											}
+										]
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Структура медицинской организации #2"
+										},
+										"archetype_node_id": "at0014",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "ИД объекта"
+												},
+												"archetype_node_id": "at0015",
+												"value": {
+													"@class": "DV_IDENTIFIER",
+													"issuer": "issuer",
+													"assigner": "assigner",
+													"id": "11475203",
+													"type": "type"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Тип объекта"
+												},
+												"archetype_node_id": "at0018",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "филиал",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0020"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Наименование"
+												},
+												"archetype_node_id": "at0016",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Офтальмологический центр ГБУЗ «ГКБ им. С.П. Боткин"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Родительский ИД"
+												},
+												"archetype_node_id": "at0017",
+												"value": {
+													"@class": "DV_IDENTIFIER",
+													"issuer": "issuer",
+													"assigner": "assigner",
+													"id": "10492228",
+													"type": "type"
+												}
+											}
+										]
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Адрес медицинской организации"
+										},
+										"archetype_node_id": "at0022",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Субъект РФ"
+												},
+												"archetype_node_id": "at0026",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Москва"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Муниципальный район (городской округ)"
+												},
+												"archetype_node_id": "at0027",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "0202"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Поселение"
+												},
+												"archetype_node_id": "at0076",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "номер_земельного_участка"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Населенный пункт"
+												},
+												"archetype_node_id": "at0025",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "населенный_пункт"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Элемент планировочной структуры"
+												},
+												"archetype_node_id": "at0078",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "элемент_планировочной_структуры"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Улица"
+												},
+												"archetype_node_id": "at0079",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "2-й Боткинский проезд"
+												}
+											},
+											{
+												"@class": "CLUSTER",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Номер здания (сооружения)"
+												},
+												"archetype_node_id": "at0077",
+												"items": [
+													{
+														"@class": "ELEMENT",
+														"name": {
+															"@class": "DV_TEXT",
+															"value": "Номер дома"
+														},
+														"archetype_node_id": "at0024",
+														"value": {
+															"@class": "DV_TEXT",
+															"value": "5"
+														}
+													},
+													{
+														"@class": "ELEMENT",
+														"name": {
+															"@class": "DV_TEXT",
+															"value": "Номер строения"
+														},
+														"archetype_node_id": "at0029",
+														"value": {
+															"@class": "DV_TEXT",
+															"value": "19"
+														}
+													}
+												]
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Номер земельного участка"
+												},
+												"archetype_node_id": "at0080",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "номер_земельного_участка"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Дополнительная информация"
+												},
+												"archetype_node_id": "at0081",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "дополнительная_информация"
+												}
+											}
+										]
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Информация о месте Cобытия"
+										},
+										"archetype_node_id": "at0061",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Событие произошло"
+												},
+												"archetype_node_id": "at0069",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "В медицинской организации",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0070"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Субъект РФ"
+												},
+												"archetype_node_id": "at0062",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "Москва"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Муниципальный район (городской округ)"
+												},
+												"archetype_node_id": "at0063",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "муниципальный_район_городской_округ"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Поселение"
+												},
+												"archetype_node_id": "at0064",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "поселение"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Населенный пункт"
+												},
+												"archetype_node_id": "at0065",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "населенный_пункт"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Элемент планировочной структуры"
+												},
+												"archetype_node_id": "at0066",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "элемент_планировочной_структуры"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Улица"
+												},
+												"archetype_node_id": "at0067",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "улица"
+												}
+											},
+											{
+												"@class": "CLUSTER",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Номер здания (сооружения)"
+												},
+												"archetype_node_id": "at0082",
+												"items": [
+													{
+														"@class": "ELEMENT",
+														"name": {
+															"@class": "DV_TEXT",
+															"value": "Номер дома"
+														},
+														"archetype_node_id": "at0085",
+														"value": {
+															"@class": "DV_TEXT",
+															"value": "номер_дома"
+														}
+													},
+													{
+														"@class": "ELEMENT",
+														"name": {
+															"@class": "DV_TEXT",
+															"value": "Номер строения"
+														},
+														"archetype_node_id": "at0084",
+														"value": {
+															"@class": "DV_TEXT",
+															"value": "номер_строения"
+														}
+													},
+													{
+														"@class": "ELEMENT",
+														"name": {
+															"@class": "DV_TEXT",
+															"value": "Номер корпуса"
+														},
+														"archetype_node_id": "at0083",
+														"value": {
+															"@class": "DV_TEXT",
+															"value": "номер_корпуса"
+														}
+													}
+												]
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Номер земельного участка"
+												},
+												"archetype_node_id": "at0030",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "номер_земельного_участка"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Номер помещения"
+												},
+												"archetype_node_id": "at0031",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "номер_помещения"
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Дополнительная информация"
+												},
+												"archetype_node_id": "at0032",
+												"value": {
+													"@class": "DV_TEXT",
+													"value": "дополнительная_информация"
+												}
+											}
+										]
+									},
+									{
+										"@class": "CLUSTER",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Дополнительная информация"
+										},
+										"archetype_node_id": "at0046",
+										"items": [
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Профиль медицинской помощи"
+												},
+												"archetype_node_id": "at0086",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "Терапия",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0087"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Виды медицинской помощи"
+												},
+												"archetype_node_id": "at0047",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "специализированная",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0051"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Условия оказания медицинской помощи"
+												},
+												"archetype_node_id": "at0048",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "вне медицинской организации",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0054"
+													}
+												}
+											},
+											{
+												"@class": "ELEMENT",
+												"name": {
+													"@class": "DV_TEXT",
+													"value": "Форма оказания медицинской помощи"
+												},
+												"archetype_node_id": "at0049",
+												"value": {
+													"@class": "DV_CODED_TEXT",
+													"value": "экстренная",
+													"defining_code": {
+														"@class": "CODE_PHRASE",
+														"terminology_id": {
+															"@class": "TERMINOLOGY_ID",
+															"value": "local"
+														},
+														"code_string": "at0058"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					"health_care_facility": {
+						"@class": "PARTY_IDENTIFIED",
+						"external_ref": {
+							"@class": "PARTY_REF",
+							"id": {
+								"@class": "GENERIC_ID",
+								"value": "1037739085900",
+								"scheme": "undefined"
+							},
+							"namespace": "Сервис РМР/РМУ",
+							"type": "ANY"
+						},
+						"name": "Государственное бюджетное учреждение здравоохранения города Москвы Городская клиническая больница имени С.П. Боткина Департамента здравоохранения города Москвы (Офтальмологический центр)"
+					},
+					"participations": [
+						{
+							"@class": "PARTICIPATION",
+							"function": {
+								"@class": "DV_TEXT",
+								"value": "Оператор оцифровки карт ДГП"
+							},
+							"performer": {
+								"@class": "PARTY_IDENTIFIED",
+								"external_ref": {
+									"@class": "PARTY_REF",
+									"id": {
+										"@class": "GENERIC_ID",
+										"value": "213784412"
+									},
+									"type": "ANY"
+								},
+								"name": "Рябов Михаил Владимирович"
+							},
+							"mode": {
+								"@class": "DV_CODED_TEXT",
+								"value": "not specified",
+								"defining_code": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "openehr"
+									},
+									"code_string": "193"
+								}
+							}
+						}
+					]
+				},
+				"content": [
+					{
+						"@class": "SECTION",
+						"name": {
+							"@class": "DV_TEXT",
+							"value": "Выписка из ИБ"
+						},
+						"archetype_details": {
+							"@class": "ARCHETYPED",
+							"archetype_id": {
+								"@class": "ARCHETYPE_ID",
+								"value": "openEHR-EHR-SECTION.adhoc.v1"
+							},
+							"rm_version": "1.0.4"
+						},
+						"archetype_node_id": "openEHR-EHR-SECTION.adhoc.v1",
+						"items": [
+							{
+								"@class": "EVALUATION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Отсутствие информации о медицинской организации"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+								"language": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "ISO_639-1"
+									},
+									"code_string": "ru"
+								},
+								"encoding": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "IANA_character-sets"
+									},
+									"code_string": "UTF-8"
+								},
+								"subject": {
+									"@class": "PARTY_SELF"
+								},
+								"data": {
+									"@class": "ITEM_TREE",
+									"name": {
+										"@class": "DV_TEXT",
+										"value": "Дерево"
+									},
+									"archetype_node_id": "at0001",
+									"items": [
+										{
+											"@class": "ELEMENT",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Заявление об отсутствии"
+											},
+											"archetype_node_id": "at0002",
+											"value": {
+												"@class": "DV_TEXT",
+												"value": "нет данных"
+											}
+										}
+									]
+								}
+							},
+							{
+								"@class": "SECTION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Основной диагноз при выписке"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-SECTION.adhoc.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-SECTION.adhoc.v1",
+								"items": [
+									{
+										"@class": "EVALUATION",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Отсутствие информации об основном диагнозе при выписке"
+										},
+										"archetype_details": {
+											"@class": "ARCHETYPED",
+											"archetype_id": {
+												"@class": "ARCHETYPE_ID",
+												"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+											},
+											"rm_version": "1.0.4"
+										},
+										"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+										"language": {
+											"@class": "CODE_PHRASE",
+											"terminology_id": {
+												"@class": "TERMINOLOGY_ID",
+												"value": "ISO_639-1"
+											},
+											"code_string": "ru"
+										},
+										"encoding": {
+											"@class": "CODE_PHRASE",
+											"terminology_id": {
+												"@class": "TERMINOLOGY_ID",
+												"value": "IANA_character-sets"
+											},
+											"code_string": "UTF-8"
+										},
+										"subject": {
+											"@class": "PARTY_SELF"
+										},
+										"data": {
+											"@class": "ITEM_TREE",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Дерево"
+											},
+											"archetype_node_id": "at0001",
+											"items": [
+												{
+													"@class": "ELEMENT",
+													"name": {
+														"@class": "DV_TEXT",
+														"value": "Заявление об отсутствии"
+													},
+													"archetype_node_id": "at0002",
+													"value": {
+														"@class": "DV_TEXT",
+														"value": "нет данных"
+													}
+												}
+											]
+										}
+									}
+								]
+							},
+							{
+								"@class": "EVALUATION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Отсутствие информации о дате выписке"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+								"language": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "ISO_639-1"
+									},
+									"code_string": "ru"
+								},
+								"encoding": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "IANA_character-sets"
+									},
+									"code_string": "UTF-8"
+								},
+								"subject": {
+									"@class": "PARTY_SELF"
+								},
+								"data": {
+									"@class": "ITEM_TREE",
+									"name": {
+										"@class": "DV_TEXT",
+										"value": "Дерево"
+									},
+									"archetype_node_id": "at0001",
+									"items": [
+										{
+											"@class": "ELEMENT",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Заявление об отсутствии"
+											},
+											"archetype_node_id": "at0002",
+											"value": {
+												"@class": "DV_TEXT",
+												"value": "нет данных"
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"@class": "SECTION",
+						"name": {
+							"@class": "DV_TEXT",
+							"value": "Выписка из ИБ"
+						},
+						"archetype_details": {
+							"@class": "ARCHETYPED",
+							"archetype_id": {
+								"@class": "ARCHETYPE_ID",
+								"value": "openEHR-EHR-SECTION.adhoc.v1"
+							},
+							"rm_version": "1.0.4"
+						},
+						"archetype_node_id": "openEHR-EHR-SECTION.adhoc.v1",
+						"items": [
+							{
+								"@class": "EVALUATION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Отсутствие информации о медицинской организации"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+								"language": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "ISO_639-1"
+									},
+									"code_string": "ru"
+								},
+								"encoding": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "IANA_character-sets"
+									},
+									"code_string": "UTF-8"
+								},
+								"subject": {
+									"@class": "PARTY_SELF"
+								},
+								"data": {
+									"@class": "ITEM_TREE",
+									"name": {
+										"@class": "DV_TEXT",
+										"value": "Дерево"
+									},
+									"archetype_node_id": "at0001",
+									"items": [
+										{
+											"@class": "ELEMENT",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Заявление об отсутствии"
+											},
+											"archetype_node_id": "at0002",
+											"value": {
+												"@class": "DV_TEXT",
+												"value": "нет данных"
+											}
+										}
+									]
+								}
+							},
+							{
+								"@class": "SECTION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Основной диагноз при выписке"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-SECTION.adhoc.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-SECTION.adhoc.v1",
+								"items": [
+									{
+										"@class": "EVALUATION",
+										"name": {
+											"@class": "DV_TEXT",
+											"value": "Отсутствие информации об основном диагнозе при выписке"
+										},
+										"archetype_details": {
+											"@class": "ARCHETYPED",
+											"archetype_id": {
+												"@class": "ARCHETYPE_ID",
+												"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+											},
+											"rm_version": "1.0.4"
+										},
+										"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+										"language": {
+											"@class": "CODE_PHRASE",
+											"terminology_id": {
+												"@class": "TERMINOLOGY_ID",
+												"value": "ISO_639-1"
+											},
+											"code_string": "ru"
+										},
+										"encoding": {
+											"@class": "CODE_PHRASE",
+											"terminology_id": {
+												"@class": "TERMINOLOGY_ID",
+												"value": "IANA_character-sets"
+											},
+											"code_string": "UTF-8"
+										},
+										"subject": {
+											"@class": "PARTY_SELF"
+										},
+										"data": {
+											"@class": "ITEM_TREE",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Дерево"
+											},
+											"archetype_node_id": "at0001",
+											"items": [
+												{
+													"@class": "ELEMENT",
+													"name": {
+														"@class": "DV_TEXT",
+														"value": "Заявление об отсутствии"
+													},
+													"archetype_node_id": "at0002",
+													"value": {
+														"@class": "DV_TEXT",
+														"value": "нет данных"
+													}
+												}
+											]
+										}
+									}
+								]
+							},
+							{
+								"@class": "EVALUATION",
+								"name": {
+									"@class": "DV_TEXT",
+									"value": "Отсутствие информации о дате выписке"
+								},
+								"archetype_details": {
+									"@class": "ARCHETYPED",
+									"archetype_id": {
+										"@class": "ARCHETYPE_ID",
+										"value": "openEHR-EHR-EVALUATION.absence-simi.v1"
+									},
+									"rm_version": "1.0.4"
+								},
+								"archetype_node_id": "openEHR-EHR-EVALUATION.absence-simi.v1",
+								"language": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "ISO_639-1"
+									},
+									"code_string": "ru"
+								},
+								"encoding": {
+									"@class": "CODE_PHRASE",
+									"terminology_id": {
+										"@class": "TERMINOLOGY_ID",
+										"value": "IANA_character-sets"
+									},
+									"code_string": "UTF-8"
+								},
+								"subject": {
+									"@class": "PARTY_SELF"
+								},
+								"data": {
+									"@class": "ITEM_TREE",
+									"name": {
+										"@class": "DV_TEXT",
+										"value": "Дерево"
+									},
+									"archetype_node_id": "at0001",
+									"items": [
+										{
+											"@class": "ELEMENT",
+											"name": {
+												"@class": "DV_TEXT",
+												"value": "Заявление об отсутствии"
+											},
+											"archetype_node_id": "at0002",
+											"value": {
+												"@class": "DV_TEXT",
+												"value": "нет данных"
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			}
+		}
+	],
+	"comment": "new Composition"
+}
