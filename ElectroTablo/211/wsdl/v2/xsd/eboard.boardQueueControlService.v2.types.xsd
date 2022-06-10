@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by max (maxim) -->
+<xs:schema xmlns:tns="http://emias.mos.ru/eboard/boardQueueControlService/v2/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/eboard/core/v1/" xmlns:core2="http://emias.mos.ru/eboard/core/v2/" targetNamespace="http://emias.mos.ru/eboard/boardQueueControlService/v2/types/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v1/" schemaLocation="../../v1/xsd/eboard.core.v1.xsd"/>
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v2/" schemaLocation="eboard.core.v2.xsd"/>
+	<!--request & response-->
+	<!--метод changeAppointmentStatus-->
+	<xs:element name="changeAppointmentStatusRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода changeAppointmentStatus</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="appointmentId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Системный идентификатор сущности "Запись" , который принадлежит
+                            ЕМИАС.ЭлектронноеТабло
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="status">
+					<xs:annotation>
+						<xs:documentation>Статус</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="CREATE"/>
+							<xs:enumeration value="PATIENT_INVITED"/>
+							<xs:enumeration value="CANCELED"/>
+							<xs:enumeration value="RECEPTION"/>
+							<xs:enumeration value="SKIPPED"/>
+							<xs:enumeration value="FINISH"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="workPlace" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Рабочее место</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="changeAppointmentStatusResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода changeAppointmentStatus</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="core:result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод getAppointments-->
+	<xs:element name="getAppointmentsRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getAppointments</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="appointmentId" type="core:ID" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Запись"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:pagingOptions"/>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getAppointmentsResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getAppointments</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="tns:AppointmentListResultPage"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AppointmentListResultPage">
+		<xs:annotation>
+			<xs:documentation>Результирующая выборка по методу getQueueBoardInfo</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingResults">
+				<xs:sequence>
+					<xs:element name="appointment" type="core2:AppointmentWithRoomShort" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentFullInfoListResultPage">
+		<xs:annotation>
+			<xs:documentation>Результирующая выборка по методу getQueueAppointmentInfo </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingResults">
+				<xs:sequence>
+					<xs:element name="appointments" type="core2:AppointmentFullInfo" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- метод getQueueAppointmentInfoByMU -->
+	<xs:element name="getQueueAppointmentInfoByMURequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getQueueAppointmentInfoByMU</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MUId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор МУ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="dateTimeFilter" type="core:DateTimePeriod" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Временной промежуток</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="status" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Статус</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="CREATE"/>
+							<xs:enumeration value="PATIENT_INVITED"/>
+							<xs:enumeration value="CANCELED"/>
+							<xs:enumeration value="RECEPTION"/>
+							<xs:enumeration value="SKIPPED"/>
+							<xs:enumeration value="FINISH"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="core:pagingOptions"/>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getQueueAppointmentInfoByMUResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getQueueAppointmentInfoByMU</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="tns:AppointmentFullInfoListResultPage"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

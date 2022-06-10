@@ -1,0 +1,454 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/svmr2/core/v1/"
+           xmlns="http://emias.mos.ru/svmr2/employeeRegistersService/v1/types/" attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://emias.mos.ru/svmr2/employeeRegistersService/v1/types/">
+    <xs:import namespace="http://emias.mos.ru/svmr2/core/v1/"
+               schemaLocation="svmr2.core.v1.xsd"/>
+    <!-- queryExpression attributes -->
+    <xs:simpleType name="FindJECriteriaAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findJobExecutions в качестве условий
+                фильтрации
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="JEArchived">
+                <xs:annotation>
+                    <xs:documentation>Исполнение должности/Признак "Архивная сущность"</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MOId">
+                <xs:annotation>
+                    <xs:documentation>Медицинская организация/Идентификатор</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMLastName">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMFirstName">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMMiddleName">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMSnils">
+                <xs:annotation>
+                    <xs:documentation>СНИЛС</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SpecializationId">
+                <xs:annotation>
+                    <xs:documentation>Ид. специализации</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SpecializationCode">
+                <xs:annotation>
+                    <xs:documentation>Код специализации</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PositionNomId">
+                <xs:annotation>
+                    <xs:documentation>Ид. должности медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PositionNomCode">
+                <xs:annotation>
+                    <xs:documentation>Код должности медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DepId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор структурного подразделения</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindJESortAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findJobExecutions в качестве условий
+                сортировки
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="DepId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор структурного подразделения</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMLastName">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMFirstName">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMMiddleName">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMSnils">
+                <xs:annotation>
+                    <xs:documentation>СНИЛС</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindCredCriteriaAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeCredentials в качестве условий
+                фильтрации
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CRNsiTypeCode">
+                <xs:annotation>
+                    <xs:documentation>Тип полномочия из НСИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CRArchived">
+                <xs:annotation>
+                    <xs:documentation>Признак "Архивная сущность"</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindCredSortAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeCredentials в качестве условий
+                сортировки
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindEducCriteriaAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeEducations в качестве условий
+                фильтрации
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EDNsiType">
+                <xs:annotation>
+                    <xs:documentation>Тип образования из НСИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EEArchived">
+                <xs:annotation>
+                    <xs:documentation>Признак "Архивная сущность"</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindEducSortAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeEducations в качестве условий
+                сортировки
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EDNsiType">
+                <xs:annotation>
+                    <xs:documentation>Тип образования из НСИ</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindCertCriteriaAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeCertification в качестве условий
+                фильтрации
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ECRTArchived">
+                <xs:annotation>
+                    <xs:documentation>Признак "Архивная сущность"</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FindCertSortAttributes">
+        <xs:annotation>
+            <xs:documentation>Перечень полей доступных для передачи в метод findEmployeeCertification в качестве условий
+                сортировки
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="core:AttributeName">
+            <xs:enumeration value="JEId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EMId">
+                <xs:annotation>
+                    <xs:documentation>Идентификатор Медработника</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <!-- lists of entities -->
+    <xs:complexType name="JobExecutionResultPage">
+        <xs:annotation>
+            <xs:documentation>Результаты отбора Исполнений должностей</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="jobExecution"
+                                type="core:JobExecutionExtension">
+                        <xs:annotation>
+                            <xs:documentation>Сведения об Исполнении должностей</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="EmployeeCredentialsResultPage">
+        <xs:annotation>
+            <xs:documentation>Результаты отбора Полномочий работника</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="credentials" type="core:EmployeeCredential">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о Полномочиях медицинских работников</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="EmployeeEducationResultPage">
+        <xs:annotation>
+            <xs:documentation>Результаты отбора Образования работника</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="education" type="core:EmployeeEducation">
+                        <xs:annotation>
+                            <xs:documentation>Сведения об Образовании медицинских работников</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="EmployeeCertificationsResultPage">
+        <xs:annotation>
+            <xs:documentation>Результаты отбора Сертификатов работника</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="certification"
+                                type="core:EmployeeCertification">
+                        <xs:annotation>
+                            <xs:documentation>Сведения о Сертиификатах медицинских работников</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ResultPageBase">
+        <xs:annotation>
+            <xs:documentation>Результаты выполнения листового метода</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <!-- requests & responses -->
+    <xs:element name="getEmployeeRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода getEmployee</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employeeId" type="core:ID">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор Работника</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" ref="core:options"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getEmployeeResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода getEmployee</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employee" type="core:EmployeeExtension">
+                    <xs:annotation>
+                        <xs:documentation>Сведения о Работнике</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getJobExecutionRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода getJobExecution</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="jobExecutionId" type="core:ID">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор Исполнения должности</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" ref="core:options"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getJobExecutionResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода getJobExecution</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="jobExecution" type="core:JobExecutionExtension">
+                    <xs:annotation>
+                        <xs:documentation>Сведения об Исполнении должности</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findJobExecutionsRequest" type="core:FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода findJobExecutions</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="findJobExecutionsResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода findJobExecutions</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="JobExecutionResultPage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findEmployeeCredentialsRequest" type="core:FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода findEmployeeCredentials</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="findEmployeeCredentialsResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода findEmployeeCredentials</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="EmployeeCredentialsResultPage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findEmployeeEducationsRequest" type="core:FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода findEmployeeEducations</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="findEmployeeEducationsResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода findEmployeeEducations</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="EmployeeEducationResultPage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findEmployeeCertificationsRequest" type="core:FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода findEmployeeCertification</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="findEmployeeCertificationsResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода findEmployeeCertification</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="EmployeeCertificationsResultPage"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

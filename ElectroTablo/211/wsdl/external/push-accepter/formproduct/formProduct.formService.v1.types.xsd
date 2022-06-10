@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://emias.mos.ru/formProduct/formService/v1/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://emias.mos.ru/formProduct/formService/v1/types/" elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           xmlns:core="http://emias.mos.ru/formProduct/core/v1/">
+    <xs:import namespace="http://emias.mos.ru/formProduct/core/v1/" schemaLocation="formProduct.core.v1.xsd"/>
+
+    <xs:element name="subscribeFormRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода subscribeForm</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="searchForm" type="xs:int"/>
+                <xs:element name="globalId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="subscribeFormResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода subscribeForm</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:int"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="phpSphinxSearchRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода phpSphinxSearch</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="formId" type="xs:int"/>
+                <xs:element name="fieldId" type="xs:int"/>
+                <xs:element name="filters" type="core:filters" nillable="true"/>
+                <xs:element name="query" type="xs:string"/>
+                <xs:element name="pagingOptions" type="core:PagingOptions" />
+                <xs:element name="formType" type="xs:string" nillable="true"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="phpSphinxSearchResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода phpSphinxSearch</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="out" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="phpSphinxSearchFromGlobalIdRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода phpSphinxSearchFromGlobalId</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="formId" type="xs:int"/>
+                <xs:element name="globalId" type="xs:int"/>
+                <xs:element name="is_deleted" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="phpSphinxSearchFromGlobalIdResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода phpSphinxSearchFromGlobalId</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="out" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="phpSphinxSearchFromGlobalIdXsdRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода phpSphinxSearchFromGlobalIdXsd</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="formId" type="xs:int"/>
+                <xs:element name="fieldId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="phpSphinxSearchFromGlobalIdXsdResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода phpSphinxSearchFromGlobalIdXsd</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="out" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getFormsRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода getForms</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="core:options" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getFormsResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода getForms</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="forms" type="core:forms"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getFieldsByFormIdRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры метода getFieldsByFormId</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inSearchFormId" type="xs:int"/>
+                <xs:element ref="core:options" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getFieldsByFormIdResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры метода getFieldsByFormId</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fields" type="core:fields"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

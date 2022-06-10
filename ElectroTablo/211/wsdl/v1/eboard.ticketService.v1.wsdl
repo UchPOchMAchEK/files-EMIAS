@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by mishatheslayer (axbit) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:uctx="http://emias.mos.ru/system/v1/userContext/"
+                  xmlns:nsf="http://emias.mos.ru/system/v1/faults/"
+                  xmlns:ns1="http://emias.mos.ru/eboard/ticketService/v1/types/"
+                  xmlns:tns="http://emias.mos.ru/eboard/ticketService/v1/"
+                  xmlns:ns="http://emias.mos.ru/eboard/core/v1/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="ticketService"
+                  targetNamespace="http://emias.mos.ru/eboard/ticketService/v1/">
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="http://emias.mos.ru/system/v1/userContext/"
+                       schemaLocation="xsd/core/emias.system.v1.userContext.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/system/v1/faults/"
+                       schemaLocation="xsd/core/emias.system.v1.faults.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/eboard/ticketService/v1/types/"
+                       schemaLocation="xsd/eboard.ticketService.v1.types.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="fault">
+        <wsdl:documentation>Ошибка</wsdl:documentation>
+        <wsdl:part name="body" element="nsf:fault"/>
+    </wsdl:message>
+    <wsdl:message name="userContext">
+        <wsdl:documentation>Контекст пользователя</wsdl:documentation>
+        <wsdl:part name="userContext" element="uctx:userContext"/>
+    </wsdl:message>
+    <wsdl:message name="getTicketByAppointmentIdInput">
+        <wsdl:part name="body" element="ns1:getTicketByAppointmentIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getTicketByAppointmentIdOutput">
+        <wsdl:part name="body" element="ns1:getTicketByAppointmentIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getTicketListInput">
+        <wsdl:part name="body" element="ns1:getTicketListRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getTicketListOutput">
+        <wsdl:part name="body" element="ns1:getTicketListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="NewMessage"/>
+    <wsdl:portType name="ticketServicePortType">
+        <wsdl:operation name="getTicketByAppointmentId">
+            <wsdl:documentation>Метод для получения номера талона записи</wsdl:documentation>
+            <wsdl:input message="tns:getTicketByAppointmentIdInput"/>
+            <wsdl:output message="tns:getTicketByAppointmentIdOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getTicketList">
+            <wsdl:documentation>Метод для получения списка номеров талонов записей</wsdl:documentation>
+            <wsdl:input message="tns:getTicketListInput"/>
+            <wsdl:output message="tns:getTicketListOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ticketServiceBinding" type="tns:ticketServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getTicketByAppointmentId">
+            <soap:operation soapAction="getTicketByAppointmentId" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getTicketList">
+            <soap:operation soapAction="getTicketList" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ticketService">
+        <wsdl:documentation>Сервис для получения номера талона записи</wsdl:documentation>
+        <wsdl:port name="ticketServicePortType" binding="tns:ticketServiceBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

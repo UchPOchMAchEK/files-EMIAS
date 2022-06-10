@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by qweqwe (qweqwe) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.2">
+	<xs:include schemaLocation="emias.system.v1.xsd"/>
+	<!--references-->
+	<xs:element name="mail" type="Mail">
+		<xs:annotation>
+			<xs:documentation>Адрес электронной почты</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="medicalOrganizationId" type="ID">
+		<xs:annotation>
+			<xs:documentation>Идентификатор Медицинской организации</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="medicalFacilityId" type="ID">
+		<xs:annotation>
+			<xs:documentation>Идентификатор Медицинского учреждения</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="compositionId" type="GUID">
+		<xs:annotation>
+			<xs:documentation>
+Идентификатор
+Композиции Think!EHR
+ЕМИАС.СИМИ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="simiDocumentId" type="GUID">
+		<xs:annotation>
+			<xs:documentation>
+Идентификатор
+Документа СИМИ
+ЕМИАС.СИМИ</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--abstract types-->
+	<xs:complexType name="Base" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания
+компонентов сущностей,
+владельцеми которых является
+текущий продукт ЕМИАС
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="ID" use="required">
+			<xs:annotation>
+				<xs:documentation>
+Идентификатор
+сущности/записи
+на уровне всего ЕМИАС</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntityBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания сущностей,
+владельцем которых является
+текущий продукт ЕМИАС
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Base">
+				<xs:attribute name="archived" type="xs:boolean" use="required">
+					<xs:annotation>
+						<xs:documentation>Признак "Архивная сущность"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ForeignBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания
+компонентов сущностей,
+владельцами которых являются
+другие продукты ЕМИАС
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Base"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ForeignEntityBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания сущностей,
+владельцами которых являются
+другие продукты ЕМИАС
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EntityBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NsiBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания типов,
+реализующих справочники ЕМИАС.НСИ.2
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ForeignEntityBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NsiWithCodeBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания типов,
+реализующих справочники ЕМИАС.НСИ.2, в которых имеется бизнес-код
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="NsiBase">
+				<xs:attribute name="code" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>Бизнес-код</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NsiRoomType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания типов,
+реализующих справочники ЕМИАС.НСИ.2, в которых имеется бизнес-код
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="NsiBase">
+				<xs:sequence>
+					<xs:element name="manualRoomName" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Необходимость выбора названия кабинета вручную</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Наименование элемента справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="code" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>Бизнес-код</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SIMIDocumentBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+Базовый абстрактный тип,
+используемый для описания cведений о документе СИМИ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="simiDocumentId"/>
+			<xs:element ref="compositionId" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--async operation status-->
+	<xs:element name="operationId" type="ID">
+		<xs:annotation>
+			<xs:documentation>Идентификатор операции</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OperationExecutionStatus">
+		<xs:annotation>
+			<xs:documentation>Статус выполнения операции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isCompleted" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Признак окончания выполнения операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="completenessProgress" type="OperationCompletenessBase">
+				<xs:annotation>
+					<xs:documentation>Сведения о текущем статусе выполнения операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hasSucceded" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак успешности выполнения операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messages" type="ErrorMessageCollection" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Коллекция сообщений, порожденных в ходе выполнения операции </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="ID" use="required">
+			<xs:annotation>
+				<xs:documentation>Идентификатор операции</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="OperationCompletenessPercentage" abstract="false">
+		<xs:annotation>
+			<xs:documentation>Описание текущего статуса выполнения операции в процентах (0%-100%)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationCompletenessBase">
+				<xs:sequence>
+					<xs:element name="completenessStatus">
+						<xs:annotation>
+							<xs:documentation>Статус (0%-100%)</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedByte">
+								<xs:minInclusive value="0"/>
+								<xs:maxInclusive value="100"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OperationCompletenessBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Базовый абстрактный тип для описания текущего статуса выполнения операции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<!--calling methods' options-->
+	<xs:element name="options" type="Options">
+		<xs:annotation>
+			<xs:documentation>Параметры вызова метода</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Options">
+		<xs:annotation>
+			<xs:documentation>Набор именованных значений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="entry" type="KeyValuePair" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Именованное значение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--pagination-->
+	<xs:element name="pagingOptions" type="PagingOptions">
+		<xs:annotation>
+			<xs:documentation>Параметры пагинации</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="PagingResults" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Список с пагинацией</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pageNumber" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Номер страницы (zero-based)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="pageTotal" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Общее количество страниц</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="pageSize" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Размер страницы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="morePagesAvailable" type="xs:boolean" use="required">
+			<xs:annotation>
+				<xs:documentation>Флаг доступности других страниц с результатами для "постраничного листания" (true - если доступны еще страницы; false - иначе)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="totalItemsCount" type="xs:long" use="required">
+			<xs:annotation>
+				<xs:documentation>Общее количество элементов (на всех страницах)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PagingOptions">
+		<xs:annotation>
+			<xs:documentation>Параметры пагинации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="sortingOptions" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="pageNumber" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Номер страницы (zero-based)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="pageSize" type="xs:int" use="required">
+			<xs:annotation>
+				<xs:documentation>Размер страницы</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!--sorting-->
+	<xs:element name="sortingOptions" type="SortingOptions">
+		<xs:annotation>
+			<xs:documentation>Параметры сортировки</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SortingOptions">
+		<xs:annotation>
+			<xs:documentation>Условия сортировки</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sortOrder" type="SortOrder" maxOccurs="3">
+				<xs:annotation>
+					<xs:documentation>
+Условия сортировки
+(используются в соответствии с
+переданной последовательностью)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SortOrder">
+		<xs:annotation>
+			<xs:documentation>Сортировка</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="attributeName" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Наименование поля, по которому должна быть произведена сортировка</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="desceding" type="xs:boolean" default="false">
+			<xs:annotation>
+				<xs:documentation>Направление сортировки</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!--void response-->
+	<xs:element name="result" fixed="true">
+		<xs:annotation>
+			<xs:documentation>Элемент для использования в методах, не предполагающих возврат какого-либо значения</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--base types-->
+	<xs:complexType name="TimeInterval">
+		<xs:annotation>
+			<xs:documentation>Временной период (время)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="start" type="xs:time" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время начала интервала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end" type="xs:time" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время окончания интервала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DatePeriod">
+		<xs:annotation>
+			<xs:documentation>Временной период (дата)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="start" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата окончания периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--keys-->
+	<xs:complexType name="EntityId">
+		<xs:annotation>
+			<xs:documentation>
+Идентфикатор сущности,
+непосредственно принадлежащей
+текущему продукту ЕМИАС</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Base"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ForeignEntityId">
+		<xs:annotation>
+			<xs:documentation>
+Идентфикатор
+сущности ЕМИАС,
+внешней по отношнению
+к текущему продукту ЕМИАС</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ForeignBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NsiGlobalId">
+		<xs:annotation>
+			<xs:documentation>
+Глобальный идентфикатор
+ЕМИАС.НСИ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ForeignBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

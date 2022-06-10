@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by max (maxim) -->
+<xs:schema xmlns:tns="http://emias.mos.ru/eboard/ticketService/v1/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/eboard/core/v1/" targetNamespace="http://emias.mos.ru/eboard/ticketService/v1/types/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v1/" schemaLocation="eboard.core.v1.xsd"/>
+	<xs:complexType name="AppointmentWithTicket">
+		<xs:annotation>
+			<xs:documentation>Описание сущности "Запись" c номером талона</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="appointmentId">
+						<xs:annotation>
+							<xs:documentation>Идентификатор Записи, владелец которого другой продукт ЕМИАС</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="core:ticket"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TicketListResultPage">
+		<xs:annotation>
+			<xs:documentation>Результирующая выборка </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingResults">
+				<xs:sequence>
+					<xs:element name="appointmentWithTicket" type="tns:AppointmentWithTicket" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--request & response-->
+	<!--метод getTicketByAppointmentId-->
+	<xs:element name="getTicketByAppointmentIdRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getTicket</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="appointmentId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getTicketByAppointmentIdResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getTicket</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="core:ticket"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод getTicketList-->
+	<xs:element name="getTicketListRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getTicketList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="appointmentId" type="core:ID" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Запись"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:pagingOptions"/>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getTicketListResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getTicketList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="tns:TicketListResultPage"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by MESMERiZE (MSM) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/eboard/core/v1/" targetNamespace="http://emias.mos.ru/eboard/core/v1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="core/emias.core.v1.xsd"/>
+	<xs:element name="ticket" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Номер талона записи</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--entities(short)-->
+	<xs:complexType name="BoardShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "Электронное табло"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:EntityBase">
+				<xs:sequence>
+					<xs:element name="status">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="ACTIVE"/>
+								<xs:enumeration value="ARHIVE"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="archiveDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата архивации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="createDate" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Дата создания табло</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BoardInfoShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "Информация о табло" / Изменения в табло</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:EntityBase">
+				<xs:sequence>
+					<xs:element name="activationDate" type="xs:date">
+						<xs:annotation>
+							<xs:documentation>Дата активация информации о табло</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="addressPointId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор объекта БТИ(ИД здания)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Наименование Электронного табло</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="muId" type="core:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор медицинского учреждения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="deviceName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование устройства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="archiveDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата архивации записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="textForPatients" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Текст сообщения для пациентов, неявившихся на прием</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RoomShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "Кабинет"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="rirRoomId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор кабинета владельцем владельцем которого является другой
+                                продукт ЕМИАС(РИР.2)
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="svmrLocationId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор кабинета владельцем владельцем которого является другой
+                                продукт ЕМИАС(СВМР.2)
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="number" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Номер кабинета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RoomShortWithRelevanceAttribute">
+		<xs:annotation>
+			<xs:documentation>Сущность "Кабинет"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:RoomShort">
+				<xs:sequence>
+					<xs:element name="isAdded" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Признак добавления кабинета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="isDeleted" type="xs:boolean">
+						<xs:annotation>
+							<xs:documentation>Признак удаления кабинета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "Запись"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="appointmentId" type="core:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор Записи, владелец которого другой продукт ЕМИАС
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="muId" type="core:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор МУ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="startTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Дата начала записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="endTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Дата окончания записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status">
+						<xs:annotation>
+							<xs:documentation>Статус</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="CREATE"/>
+								<xs:enumeration value="PATIENT_INVITED"/>
+								<xs:enumeration value="CANCELED"/>
+								<xs:enumeration value="RECEPTION"/>
+								<xs:enumeration value="SKIPPED"/>
+								<xs:enumeration value="FINISH"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="patientId" type="core:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор пациента ЕМИАС</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="type">
+						<xs:annotation>
+							<xs:documentation>Тип события</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="BM"/>
+								<xs:enumeration value="DOCTOR"/>
+								<xs:enumeration value="LDP"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="createDate" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Дата создания</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResourceShort">
+		<xs:annotation>
+			<xs:documentation>Cущность "Ресурс"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="availableName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Наименование доступного ресурса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="availableResourceId" type="xs:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор доступного ресурса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="rirRoomId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор кабинета владельцем владельцем которого является другой
+                                продукт ЕМИАС (РИР.2)
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="svmrLocationId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор кабинета владельцем владельцем которого является другой
+                                продукт ЕМИАС(СВМР.2)
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="complexResourceId" type="core:ID" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор ресурса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentStatusHistoryShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "История статусов записи"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="createDate" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Дата создания статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Статус</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EmployeeShort">
+		<xs:annotation>
+			<xs:documentation>Сущность "Врач"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:Base">
+				<xs:sequence>
+					<xs:element name="specialityId" type="core:ID">
+						<xs:annotation>
+							<xs:documentation>Идентификатор специальности</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="specialityTitle" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Наименование специальности</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lastName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Фамилия врача</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="firstName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Имя врача</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="middleName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Отчество врача</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--entities(extension)-->
+	<xs:complexType name="RoomExtension">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения о Кабинете</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:RoomShort">
+				<xs:sequence minOccurs="0">
+					<xs:element name="appointments" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Коллекция "Запись"</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="appointment" type="core:AppointmentExtension" minOccurs="1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentExtension">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения о Записи</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AppointmentShort">
+				<xs:sequence>
+					<xs:element name="resource" type="core:ResourceExtension">
+						<xs:annotation>
+							<xs:documentation>Ресурс</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="statusHistory">
+						<xs:annotation>
+							<xs:documentation>Коллекция "История статусов"</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="status" type="core:AppointmentStatusHistoryShort" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="core:ticket"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResourceExtension">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения о Ресурсе</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:ResourceShort">
+				<xs:sequence>
+					<xs:element name="employee" type="core:EmployeeShort" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Врач</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BoardExtension">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения об Электронном табло</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BoardShort">
+				<xs:sequence>
+					<xs:element name="boardInfo" type="core:BoardInfoExtension">
+						<xs:annotation>
+							<xs:documentation>информация о табло</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentWithRoomShort">
+		<xs:annotation>
+			<xs:documentation>Сведения о Записи пациента и Кабинете</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AppointmentShort">
+				<xs:sequence minOccurs="0">
+					<xs:element name="room" type="core:RoomShort"/>
+					<xs:element name="statusCreateDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата создания статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BoardInfoExtension">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения о "Табло"</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BoardInfoShort">
+				<xs:sequence>
+					<xs:element name="rooms" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Коллекция "Кабинет"</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="room" type="core:RoomShort" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AppointmentFullInfo">
+		<xs:annotation>
+			<xs:documentation>Расширенные сведения о Записи</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:AppointmentShort">
+				<xs:annotation>
+					<xs:documentation>Идентификатор табло</xs:documentation>
+					<xs:documentation>Наименование табло</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="resource" type="core:ResourceExtension">
+						<xs:annotation>
+							<xs:documentation>Ресурс</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="statusHistory">
+						<xs:annotation>
+							<xs:documentation>Коллекция "История статусов"</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="status" type="core:AppointmentStatusHistoryShort" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="room" type="core:RoomShort"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimePeriod">
+		<xs:annotation>
+			<xs:documentation>Временной период (дата)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="start" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата и время начала периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата и время окончания периода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

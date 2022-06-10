@@ -1,0 +1,193 @@
+<wsdl:definitions xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:uctx="http://emias.mos.ru/system/v1/userContext/" xmlns:tns="http://emias.mos.ru/svmr2/employeeRegistersService/v1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nsf="http://emias.mos.ru/system/v1/faults/" xmlns:ns1="http://emias.mos.ru/svmr2/employeeRegistersService/v1/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" name="employeeRegistersService" targetNamespace="http://emias.mos.ru/svmr2/employeeRegistersService/v1/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:uctx="http://emias.mos.ru/system/v1/userContext/" xmlns:tns="http://emias.mos.ru/svmr2/employeeRegistersService/v1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nsf="http://emias.mos.ru/system/v1/faults/" xmlns:ns1="http://emias.mos.ru/svmr2/employeeRegistersService/v1/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/">
+            <xs:import namespace="http://emias.mos.ru/system/v1/userContext/" schemaLocation="emias.system.v1.userContext.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/system/v1/faults/" schemaLocation="emias.system.v1.faults.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/svmr2/employeeRegistersService/v1/types/" schemaLocation="svmr2.employeeRegistersService.v1.types.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="userContext">
+        <wsdl:documentation>Контекст пользователя</wsdl:documentation>
+        <wsdl:part element="uctx:userContext" name="userContext"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findEmployeeCertificationsInput">
+        <wsdl:part element="ns1:findEmployeeCertificationsRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findEmployeeCredentialsOutput">
+        <wsdl:part element="ns1:findEmployeeCredentialsResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getJobExecutionOutput">
+        <wsdl:part element="ns1:getJobExecutionResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmployeeEducationsOutput">
+        <wsdl:part element="ns1:findEmployeeEducationsResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getJobExecutionInput">
+        <wsdl:part element="ns1:getJobExecutionRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fault">
+        <wsdl:documentation>Ошибка</wsdl:documentation>
+        <wsdl:part element="nsf:fault" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findEmployeeCertificationsOutput">
+        <wsdl:part element="ns1:findEmployeeCertificationsResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findEmployeeEducationsInput">
+        <wsdl:part element="ns1:findEmployeeEducationsRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmployeeOutput">
+        <wsdl:part element="ns1:getEmployeeResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findJobExecutionsOutput">
+        <wsdl:part element="ns1:findJobExecutionsResponse" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findJobExecutionsInput">
+        <wsdl:part element="ns1:findJobExecutionsRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findEmployeeCredentialsInput">
+        <wsdl:part element="ns1:findEmployeeCredentialsRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getEmployeeInput">
+        <wsdl:part element="ns1:getEmployeeRequest" name="body"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="employeeRegistersServicePortType">
+        <wsdl:documentation>Операции (методы)</wsdl:documentation>
+        <wsdl:operation name="getEmployee">
+            <wsdl:documentation>Метод возвращает сведения о Работнике по его идентификатору</wsdl:documentation>
+            <wsdl:input message="tns:getEmployeeInput"> </wsdl:input>
+            <wsdl:output message="tns:getEmployeeOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getJobExecution">
+            <wsdl:documentation>Метод возвращает сведения об Исполнении должности по ее идентификатору</wsdl:documentation>
+            <wsdl:input message="tns:getJobExecutionInput"> </wsdl:input>
+            <wsdl:output message="tns:getJobExecutionOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findJobExecutions">
+            <wsdl:documentation>Поисковый метод возвращает сведения об Исполнениях должностей по заданным условиям фильтра</wsdl:documentation>
+            <wsdl:input message="tns:findJobExecutionsInput"> </wsdl:input>
+            <wsdl:output message="tns:findJobExecutionsOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeCredentials">
+            <wsdl:documentation>Поисковый метод возвращает сведения о Полномочиях работника по заданным условиям фильтра</wsdl:documentation>
+            <wsdl:input message="tns:findEmployeeCredentialsInput"> </wsdl:input>
+            <wsdl:output message="tns:findEmployeeCredentialsOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeEducations">
+            <wsdl:documentation>Поисковый метод возвращает сведения об Образовании работника по заданным условиям фильтра</wsdl:documentation>
+            <wsdl:input message="tns:findEmployeeEducationsInput"> </wsdl:input>
+            <wsdl:output message="tns:getEmployeeEducationsOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeCertifications">
+            <wsdl:documentation>Поисковый метод возвращает сведения о Сертификатах работника по заданным условиям фильтра</wsdl:documentation>
+            <wsdl:input message="tns:findEmployeeCertificationsInput"> </wsdl:input>
+            <wsdl:output message="tns:findEmployeeCertificationsOutput"> </wsdl:output>
+            <wsdl:fault message="tns:fault" name="fault"> </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="employeeRegistersService" type="tns:employeeRegistersServicePortType">
+        <wsdl:documentation>Способы доставки</wsdl:documentation>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getEmployee">
+            <soap:operation soapAction="getEmployee"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getJobExecution">
+            <soap:operation soapAction="getJobExecution"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findJobExecutions">
+            <soap:operation soapAction="findJobExecutions" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeCredentials">
+            <soap:operation soapAction="findEmployeeCredentials" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeEducations">
+            <soap:operation soapAction="findEmployeeEducations" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findEmployeeCertifications">
+            <soap:operation soapAction="findEmployeeCertifications" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:userContext" part="userContext" use="literal"> </soap:header>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="employeeRegistersService">
+        <wsdl:documentation>Сервис "Регистры работников"</wsdl:documentation>
+        <wsdl:port binding="tns:employeeRegistersService" name="employeeRegistersServicePort">
+            <wsdl:documentation>Endpoint сервиса</wsdl:documentation>
+            <soap:address location="http://svmr2-soapemplregister.test.emias.mos.ru/services/employeeRegistersService/v1/"/>
+        </wsdl:port>
+        <wsp:PolicyReference URI="#authPolicy"/>
+    </wsdl:service>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" wsu:Id="authPolicy">
+        <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+            <wsp:Policy>
+                <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                        <sp:NoPassword/>
+                    </wsp:Policy>
+                </sp:UsernameToken>
+            </wsp:Policy>
+        </sp:SupportingTokens>
+    </wsp:Policy>
+</wsdl:definitions>

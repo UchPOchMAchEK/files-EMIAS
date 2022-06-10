@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://emias.mos.ru/supp.careevents/v3/careEventsService/types/"
+            xmlns:uctx="http://emias.mos.ru/system/v1/userContext/"
+            targetNamespace="http://emias.mos.ru/supp.careevents/v3/careEventsService/types/"
+            elementFormDefault="qualified" version="3.1">
+    <xsd:import namespace="http://emias.mos.ru/system/v1/userContext/"
+                schemaLocation="../../v1/xsd/core/emias.system.v1.userContext.xsd"/>
+    <xsd:simpleType name="ID">
+        <xsd:annotation>
+            <xsd:documentation>Ид Клинического события</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:long"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="CareEventStatusEnum">
+        <xsd:annotation>
+            <xsd:documentation>Статус клинического события</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="RUNNING">
+                <xsd:annotation>
+                    <xsd:documentation>Событие выполняется</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="DEFERRED">
+                <xsd:annotation>
+                    <xsd:documentation>Событие отложено</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="FINISHED">
+                <xsd:annotation>
+                    <xsd:documentation>Событие завершено</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="CANCELLED">
+                <xsd:annotation>
+                    <xsd:documentation>Событие отменено</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="CareEventCancellationInfoDetails">
+        <xsd:annotation>
+            <xsd:documentation>Информация о дочерних узлах</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="cancelReason" type="tns:CareEventCancellationReason" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Информация о причине отмены</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CareEventCancellationReason">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:integer">
+                <xsd:annotation>
+                    <xsd:documentation>Код причины отмены</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="description" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Описание причины отмены</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="details" type="tns:CareEventCancellationInfoDetails">
+                <xsd:annotation>
+                    <xsd:documentation>Информация о дочерних узлах</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CareEventCancellationInfo">
+        <xsd:annotation>
+            <xsd:documentation>Информация о причине отмены клинического события</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="cancelReason" type="tns:CareEventCancellationReason">
+                <xsd:annotation>
+                    <xsd:documentation>Причина отмены клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="info" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Комментарий, дополнительная информация, введенная пользователем
+                        при отмене клинического события
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="LocationTypeEnum">
+        <xsd:annotation>
+            <xsd:documentation>Типы локаций для композитного ресурса</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ADDRESS_LOCATION"/>
+            <xsd:enumeration value="SIMPLE_LOCATION"/>
+            <xsd:enumeration value="COMPLEX_LOCATION"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="AddressLocation">
+        <xsd:annotation>
+            <xsd:documentation>Локация композитного ресурса в форме адреса</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="locationType" type="tns:LocationTypeEnum">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип локации композитного ресурса. Примечание:
+                        Для локации в адресном виде значение равно ADDRESS_LOCATION
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="address" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Содержит текстовое представление адреса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="medicalFacilityId" type="xsd:long" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>ИД МУ (для desk_resource)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ComplexLocation">
+        <xsd:annotation>
+            <xsd:documentation>Локация композитного ресурса в комплексном виде</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="locationType" type="tns:LocationTypeEnum">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип локации композитного ресурса. Примечание:
+                        Для локации в комплексном виде значение равно COMPLEX_LOCATION
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="roomId" type="xsd:long" minOccurs="0" default="1">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор кабинета из ЕМИАС.СУПП.РиР</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="complexResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор комплексного ресурса из ЕМИАС.СУПП.РиР</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BasicResource">
+        <xsd:annotation>
+            <xsd:documentation>Базовый ресурс</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="basicResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Тип базового ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор базового ресурса
+                        (медицинского оборудования или исполнения должности сотрудника из ЕМИАС.СУПП.РиР)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="determinant" type="xsd:boolean" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        1) Для варианта determinantBasicResource указывается TRUE
+                        2) Для варианта basicResource указывается FALSE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="role" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Текстовое описание роли базового ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="BasicResources">
+        <xsd:annotation>
+            <xsd:documentation>Набор базовых ресурсов</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="determinantBasicResource" type="tns:BasicResource">
+                <xsd:annotation>
+                    <xsd:documentation>Основной базовый ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResource" type="tns:BasicResource" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Вспомогательные базовые ресурсы</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AvailableResource">
+        <xsd:annotation>
+            <xsd:documentation>Доступный ресурс</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для доступного ресурса значение равно AVAILABLE_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор композитного ресурса (доступного ресурса из ЕМИАС.СУПП.РиР)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="addressLocation" type="tns:AddressLocation" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в форме адреса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="complexLocation" type="tns:ComplexLocation" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Локация композитного ресурса в комплексном виде
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityCareEvent">
+        <xsd:annotation>
+            <xsd:documentation>Сущность клинического события</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="entityCareEvent" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Соответствует значению из ENTITY_CARE_EVENT ("Сущность клинического события")
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ids">
+                <xsd:annotation>
+                    <xsd:documentation>Группирующий коллекцию идентификаторов элемент</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:annotation>
+                                <xsd:documentation>Идентификатор сущности</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SimpleLocation">
+        <xsd:annotation>
+            <xsd:documentation>Локацию в упрощенном комплексном виде</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="locationType" type="tns:LocationTypeEnum">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип локации композитного ресурса. Примечание:
+                        Для локации в упрощённом комплексном виде значение равно SIMPLE_LOCATION
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="roomId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор кабинета из ЕМИАС.СУПП.РиР</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SpecialAvailableResource">
+        <xsd:annotation>
+            <xsd:documentation>Специализированный доступный ресурс</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для специализированного доступного ресурса значение равно SPECIAL_AVAILABLE_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор композитного ресурса (специального доступного ресурса из ЕМИАС.СУПП.РиР)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="simpleLocation" type="tns:SimpleLocation">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в упрощённом комплексном виде</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="HospitalResource">
+        <xsd:annotation>
+            <xsd:documentation>Ресурс госпиталя</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для госпитального доступного ресурса значение равно HOSPITAL_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор композитного ресурса (госпитального доступного ресурса из ЕМИАС.СУПП.РиР)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="addressLocation" type="tns:AddressLocation">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в адресном виде</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeskResource">
+        <xsd:annotation>
+            <xsd:documentation>Вспомогательный ресурс</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для госпитального доступного ресурса значение равно DESK_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор должности сотрудника</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="addressLocation" type="tns:AddressLocation">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в адресном виде</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="MfcResource">
+        <xsd:annotation>
+            <xsd:documentation>Ресурс МФЦ</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для госпитального доступного ресурса значение равно MFC_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор МФЦ</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="addressLocation" type="tns:AddressLocation">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в адресном виде</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AmbulanceResource">
+        <xsd:annotation>
+            <xsd:documentation>Ресурс ССиНМП</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="compositeResourceType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип композитного ресурса. Примечание:
+                        Для госпитального доступного ресурса значение равно AMBULANCE_RESOURCE
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResourceId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор композитного ресурса (ресурс ССиНМП)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="addressLocation" type="tns:AddressLocation">
+                <xsd:annotation>
+                    <xsd:documentation>Локация композитного ресурса в адресном виде</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basicResources" type="tns:BasicResources">
+                <xsd:annotation>
+                    <xsd:documentation>Перечень базовых ресурсов композитного ресурса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Resource">
+        <xsd:annotation>
+            <xsd:documentation>Ресурс медицинской организации</xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice>
+            <xsd:element name="availableResource" type="tns:AvailableResource">
+                <xsd:annotation>
+                    <xsd:documentation>Доступный ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="specialAvailableResource" type="tns:SpecialAvailableResource">
+                <xsd:annotation>
+                    <xsd:documentation>Специализированный доступный ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="hospitalResource" type="tns:HospitalResource">
+                <xsd:annotation>
+                    <xsd:documentation>Ресурс госпиталя</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="deskResource" type="tns:DeskResource">
+                <xsd:annotation>
+                    <xsd:documentation>Вспомогательный ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="mfcResource" type="tns:MfcResource">
+                <xsd:annotation>
+                    <xsd:documentation>Ресурс МФЦ</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ambulanceResource" type="tns:AmbulanceResource">
+                <xsd:annotation>
+                    <xsd:documentation>Ресурс ССиНМП</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+    <xsd:complexType name="Entry">
+        <xsd:annotation>
+            <xsd:documentation>Запись на ресурс медицинской организации</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="entryId" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор записи на ресурс медицинской организации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="entryType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Тип записи на ресурс медицинской организации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CareEventsMsg">
+        <xsd:annotation>
+            <xsd:documentation>Сообщения в ЕСУ о клиническом событии</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="id" type="tns:ID">
+                <xsd:annotation>
+                    <xsd:documentation>Ид Клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="type" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Код типа Клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="status" type="tns:CareEventStatusEnum">
+                <xsd:annotation>
+                    <xsd:documentation>Текущий статус Клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="statusChangeTime" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:documentation>Дата и время присвоения Клиническому событию текущего статуса</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="duration" type="xsd:long">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Текущая длительность приёма в миллисекундах. Суммарное значение между статусами
+                        RUNNING Выполняется и DEFERRED Отложено или FINISHED Завершено.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="startTime" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:documentation>Дата и время начала Клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="finishTime" type="xsd:dateTime" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Дата и время окончания Клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="info" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Дополнительная информация</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="cancellationInfo" type="tns:CareEventCancellationInfo" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Описание причины отмены клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="patientId" type="tns:ID" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>ИД пациента</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="compositeResource" type="tns:Resource">
+                <xsd:annotation>
+                    <xsd:documentation>Композитный ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="appointment" type="tns:Entry" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Запись на ресурс</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="entity" type="tns:EntityCareEvent" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Сущность клинического события</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="userContext" type="uctx:UserContext">
+                <xsd:annotation>
+                    <xsd:documentation>Контекст пользователя, инициировавшего событие.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CareEventsMsg" type="tns:CareEventsMsg"/>
+</xsd:schema>

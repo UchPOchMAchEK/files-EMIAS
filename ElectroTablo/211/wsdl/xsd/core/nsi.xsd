@@ -1,0 +1,57 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="package">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="catalog">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="categories">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="category">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:short">
+                                                        <xs:attribute type="xs:string" name="idHier"/>
+                                                        <xs:attribute type="xs:string" name="nameHier"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="data">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="attribute" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="values">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="value"/>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:string" name="name" use="optional"/>
+                                                <xs:attribute type="xs:short" name="field_id" use="optional"/>
+                                                <xs:attribute type="xs:string" name="type" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="action"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="name"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="count"/>
+            <xs:attribute type="xs:short" name="id"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

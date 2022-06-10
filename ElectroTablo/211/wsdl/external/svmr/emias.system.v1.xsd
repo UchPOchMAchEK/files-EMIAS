@@ -1,0 +1,111 @@
+<!--  edited with XMLSpy v2019 sp2 (x64) (http://www.altova.com) by xizutuy (уу)  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+    <!-- error message description -->
+    <xs:complexType name="ErrorMessageCollection">
+        <xs:annotation>
+            <xs:documentation>Коллекция сообщений об ошибках</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="message" type="ErrorMessage">
+                <xs:annotation>
+                    <xs:documentation>Сообщение об ошибке</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ErrorMessage">
+        <xs:annotation>
+            <xs:documentation>Сообщение об ошибке</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Message">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="parameters">
+                        <xs:annotation>
+                            <xs:documentation>Коллекция параметров сообщения</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="parameter" type="KeyValuePair">
+                                    <xs:annotation>
+                                        <xs:documentation>Параметр сообщения</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="messages" type="ErrorMessageCollection">
+                        <xs:annotation>
+                            <xs:documentation>Сопутствующие сообщения об ошибках</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="type" type="ErrorMessageTypes" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип сообщения</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="ErrorMessageTypes">
+        <xs:annotation>
+            <xs:documentation>Тип сообщения об ошибке</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ERROR">
+                <xs:annotation>
+                    <xs:documentation>Ошибка</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="WARNING">
+                <xs:annotation>
+                    <xs:documentation>Предупреждение (не блокирующая ошибка)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="INFO">
+                <xs:annotation>
+                    <xs:documentation>Информационное сообщение</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ID">
+        <xs:annotation>
+            <xs:documentation>Идентификатор</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:long"/>
+    </xs:simpleType>
+    <xs:complexType name="KeyValuePair">
+        <xs:annotation>
+            <xs:documentation>Представляет тип "ключ/значение"</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="key" type="xs:string" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Ключ</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="Message">
+        <xs:annotation>
+            <xs:documentation>Сообщение</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="code" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Код сообщения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="message" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Текст сообщения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

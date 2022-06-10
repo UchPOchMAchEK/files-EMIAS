@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by misha (lovomon) -->
+<xs:schema xmlns:tns="http://emias.mos.ru/eboard/queueInfoService/v1/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="http://emias.mos.ru/eboard/core/v1/"
+           targetNamespace="http://emias.mos.ru/eboard/queueInfoService/v1/types/" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <xs:import namespace="http://emias.mos.ru/eboard/core/v1/" schemaLocation="eboard.core.v1.xsd"/>
+    <!--List page-->
+    <xs:complexType name="BoardInfoListResultPage">
+        <xs:annotation>
+            <xs:documentation>Результирующая выборка по методу getQueueBoardInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element name="room" type="core:RoomShort" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AppointmentInfoListResultPage">
+        <xs:annotation>
+            <xs:documentation>Результирующая выборка по методу getQueueAppointmentInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="core:PagingResults">
+                <xs:sequence>
+                    <xs:element name="room" type="core:RoomExtension" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <!--request & responses-->
+    <!-- метод getQueueBoardInfo-->
+    <xs:element name="getQueueBoardInfoRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры для метода getQueueBoardInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="boardId" type="core:ID">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор сущности "Электронного табло"</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="core:options" minOccurs="0"/>
+                <xs:element ref="core:pagingOptions"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getQueueBoardInfoResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры для метода getQueueBoardInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="tns:BoardInfoListResultPage">
+                                <xs:attribute name="boardId" type="core:ID" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+
+                                <xs:attribute name="activationDate" type="xs:date">
+                                    <xs:annotation>
+                                        <xs:documentation>Дата начала действия настройки "Электронное табло"
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+
+                                <xs:attribute name="name" type="xs:string" use="required">
+                                    <xs:annotation>
+                                        <xs:documentation>Наименование сущности "Электронное табло"</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- метод getQueueAppointmentInfo -->
+    <xs:element name="getQueueAppointmentInfoRequest">
+        <xs:annotation>
+            <xs:documentation>Входные параметры для метода getQueueAppointmentInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="boardId" type="core:ID">
+                    <xs:annotation>
+                        <xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="timeFilter" type="core:TimeInterval" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Временной промежуток</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="skippedTimeInterval" type="xs:time" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Временной период для отображения записи в статусе "Обратитесь к
+                            администратору"
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="core:pagingOptions"/>
+                <xs:element ref="core:options" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getQueueAppointmentInfoResponse">
+        <xs:annotation>
+            <xs:documentation>Выходные параметры для метода getQueueAppointmentInfo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="tns:AppointmentInfoListResultPage">
+                                <xs:attribute name="boardId" type="core:ID" use="required"/>
+                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                <xs:attribute name="activationDate" type="xs:date"/>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

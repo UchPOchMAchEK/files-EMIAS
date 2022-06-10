@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://emias.mos.ru/formProduct/core/v1/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://emias.mos.ru/formProduct/core/v1/" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <xs:include schemaLocation="../../../v1/xsd/core/emias.core.v1.xsd"/>
+
+    <xs:complexType name="forms">
+        <xs:sequence>
+            <xs:element name="form" type="form" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="form">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" nillable="true"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="fields">
+        <xs:sequence>
+            <xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="field">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" nillable="true"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="filters">
+        <xs:sequence>
+            <xs:element name="filter" type="filter" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="filter">
+        <xs:sequence>
+            <xs:element name="fieldId" type="xs:long" nillable="true"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

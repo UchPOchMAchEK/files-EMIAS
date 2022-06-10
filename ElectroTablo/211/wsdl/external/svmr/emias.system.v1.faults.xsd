@@ -1,0 +1,215 @@
+<!--  edited with XMLSpy v2017 rel. 3 sp1 (x64) (http://www.altova.com) by Vladimir Makarov (Private)  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:uctx="http://emias.mos.ru/system/v1/userContext/"
+           xmlns="http://emias.mos.ru/system/v1/faults/" attributeFormDefault="unqualified"
+           elementFormDefault="qualified" targetNamespace="http://emias.mos.ru/system/v1/faults/">
+    <xs:include
+            schemaLocation="emias.system.v1.xsd"/>
+    <xs:import namespace="http://emias.mos.ru/system/v1/userContext/"
+               schemaLocation="emias.system.v1.userContext.xsd"/>
+    <!-- faults -->
+    <xs:element name="fault" type="BaseFault">
+        <xs:annotation>
+            <xs:documentation>Базовый тип ошибки</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SecurityFault">
+        <xs:annotation>
+            <xs:documentation>Ошибка безопасности</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="BaseFault">
+                <xs:sequence>
+                    <xs:element ref="uctx:userContext"/>
+                    <xs:choice>
+                        <xs:element name="unauthorizedRequestSecurityException"
+                                    type="UnauthorizedRequestSecurityException">
+                            <xs:annotation>
+                                <xs:documentation>Исключение безопасности типа UNAUTHORIZED_REQUEST_EXCEPTION
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="otherSecurityException" type="OtherSecurityException">
+                            <xs:annotation>
+                                <xs:documentation>Исключение безопасности типа OTHER_SECURITY_EXCEPTION
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute fixed="SECURITY" name="type" type="FaultTypes" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип ошибки</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="BusinessFault">
+        <xs:annotation>
+            <xs:documentation>Бизнес ошибка</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="BaseFault">
+                <xs:sequence>
+                    <xs:element name="messages" type="ErrorMessageCollection">
+                        <xs:annotation>
+                            <xs:documentation>Коллекция Сообщений об ошибках</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="hasErrors" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Признак наличия ошибок в списке сообщений</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute fixed="BUSINESS" name="type" type="FaultTypes" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип ошибки</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="UnexpectedFault">
+        <xs:annotation>
+            <xs:documentation>Непредвиденная ошибка</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="BaseFault">
+                <xs:sequence>
+                    <xs:element name="version" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Версия продукта-сервиса</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="stackTrace">
+                        <xs:annotation>
+                            <xs:documentation>Стек вызова (последние 10 записей)</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="10" name="stackTraceRecord">
+                                    <xs:annotation>
+                                        <xs:documentation>Запись StackTrace</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="declaringClass" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Наименование класса, содержащего метод
+                                                    </xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="methodName" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Наименование метода</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="fileName" type="xs:string">
+                                                <xs:annotation>
+                                                    <xs:documentation>Наименование файла</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="lineNumber" type="xs:int">
+                                                <xs:annotation>
+                                                    <xs:documentation>Номер строки кода</xs:documentation>
+                                                </xs:annotation>
+                                            </xs:element>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute fixed="UNEXPECTED" name="type" type="FaultTypes" use="required">
+                    <xs:annotation>
+                        <xs:documentation>Тип ошибки</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType abstract="true" name="BaseFault">
+        <xs:annotation>
+            <xs:documentation>Описание базового типа описания ошибки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence/>
+    </xs:complexType>
+    <!-- security exceptions -->
+    <xs:complexType name="UnauthorizedRequestSecurityException">
+        <xs:annotation>
+            <xs:documentation>Исключение безопасности типа UNAUTHORIZED_REQUEST_EXCEPTION</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="requiredRights">
+                <xs:annotation>
+                    <xs:documentation>Перечень идентификаторов недостающих Полномочий пользователя</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="userRightId" type="ID">
+                            <xs:annotation>
+                                <xs:documentation>Идентификатор Полномочия пользователя</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute fixed="UNAUTHORIZED_REQUEST_EXCEPTION" name="type" type="SecurityExceptionTypes" use="required">
+            <xs:annotation>
+                <xs:documentation>Тип исключения безопасности</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="OtherSecurityException">
+        <xs:annotation>
+            <xs:documentation>Исключение безопасности типа OTHER_SECURITY_EXCEPTION</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="message" type="Message">
+                <xs:annotation>
+                    <xs:documentation>Сообщение</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute fixed="OTHER_SECURITY_EXCEPTION" name="type" type="SecurityExceptionTypes" use="required">
+            <xs:annotation>
+                <xs:documentation>Тип исключения безопасности</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="SecurityExceptionTypes">
+        <xs:annotation>
+            <xs:documentation>Типы исключений безопасности</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UNAUTHORIZED_REQUEST_EXCEPTION"/>
+            <xs:enumeration value="OTHER_SECURITY_EXCEPTION"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <!-- components -->
+    <xs:simpleType name="FaultTypes">
+        <xs:annotation>
+            <xs:documentation>Тип ошибки</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SECURITY">
+                <xs:annotation>
+                    <xs:documentation>Непредвиденная ошибка приложения</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="BUSINESS">
+                <xs:annotation>
+                    <xs:documentation>Бизнес ошибка</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="UNEXPECTED">
+                <xs:annotation>
+                    <xs:documentation>Ошибка безопасности</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

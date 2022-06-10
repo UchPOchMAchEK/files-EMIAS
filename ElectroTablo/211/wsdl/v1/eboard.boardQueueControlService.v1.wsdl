@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by misha (lovomon) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:uctx="http://emias.mos.ru/system/v1/userContext/"
+                  xmlns:nsf="http://emias.mos.ru/system/v1/faults/"
+                  xmlns:ns1="http://emias.mos.ru/eboard/boardQueueControlService/v1/types/"
+                  xmlns:tns="http://emias.mos.ru/eboard/boardQueueControlService/v1/"
+                  xmlns:ns="http://emias.mos.ru/eboard/core/v1/" name="boardQueueControlService"
+                  targetNamespace="http://emias.mos.ru/eboard/boardQueueControlService/v1/">
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="http://emias.mos.ru/system/v1/userContext/"
+                       schemaLocation="xsd/core/emias.system.v1.userContext.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/system/v1/faults/"
+                       schemaLocation="xsd/core/emias.system.v1.faults.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/eboard/boardQueueControlService/v1/types/"
+                       schemaLocation="xsd/eboard.boardQueueControlService.v1.types.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="fault">
+        <wsdl:documentation>Ошибка</wsdl:documentation>
+        <wsdl:part name="body" element="nsf:fault"/>
+    </wsdl:message>
+    <wsdl:message name="userContext">
+        <wsdl:documentation>Контекст пользователя</wsdl:documentation>
+        <wsdl:part name="userContext" element="uctx:userContext"/>
+    </wsdl:message>
+    <wsdl:message name="changeAppointmentStatusInput">
+        <wsdl:part name="body" element="ns1:changeAppointmentStatusRequest"/>
+    </wsdl:message>
+    <wsdl:message name="changeAppointmentStatusOutput">
+        <wsdl:part name="body" element="ns1:changeAppointmentStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getAppointmentsInput">
+        <wsdl:part name="body" element="ns1:getAppointmentsRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getAppointmentsOutput">
+        <wsdl:part name="body" element="ns1:getAppointmentsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getQueueAppointmentInfoByMUInput">
+        <wsdl:part name="body" element="ns1:getQueueAppointmentInfoByMURequest"/>
+    </wsdl:message>
+    <wsdl:message name="getQueueAppointmentInfoByMUOutput">
+        <wsdl:part name="body" element="ns1:getQueueAppointmentInfoByMUResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="boardQueueControlServicePortType">
+        <wsdl:operation name="changeAppointmentStatus">
+            <wsdl:documentation>Метод для изменения статуса записи</wsdl:documentation>
+            <wsdl:input message="tns:changeAppointmentStatusInput"/>
+            <wsdl:output message="tns:changeAppointmentStatusOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAppointments">
+            <wsdl:documentation>Метод для получения списка записей пациента</wsdl:documentation>
+            <wsdl:input message="tns:getAppointmentsInput"/>
+            <wsdl:output message="tns:getAppointmentsOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getQueueAppointmentInfoByMU">
+            <wsdl:documentation>Метод для получения информации о записях пациентов по МУ</wsdl:documentation>
+            <wsdl:input message="tns:getQueueAppointmentInfoByMUInput"/>
+            <wsdl:output message="tns:getQueueAppointmentInfoByMUOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="boardQueueControlServiceBinding" type="tns:boardQueueControlServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="changeAppointmentStatus">
+            <soap:operation soapAction="changeAppointmentStatus" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAppointments">
+            <soap:operation soapAction="getAppointments" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getQueueAppointmentInfoByMU">
+            <soap:operation soapAction="getQueueAppointmentInfoByMU" soapActionRequired="true"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="boardQueueControlService">
+        <wsdl:documentation>Сервис для работы со статусом записи</wsdl:documentation>
+        <wsdl:port name="boardQueueControlServicePortType" binding="tns:boardQueueControlServiceBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

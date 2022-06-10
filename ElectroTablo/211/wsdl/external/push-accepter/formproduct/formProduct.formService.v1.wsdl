@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:uctx="http://emias.mos.ru/system/v1/userContext/"
+                  xmlns:nsf="http://emias.mos.ru/system/v1/faults/"
+                  xmlns:ns1="http://emias.mos.ru/formProduct/formService/v1/types/"
+                  xmlns:wsp="http://www.w3.org/ns/ws-policy"
+                  xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:tns="http://emias.mos.ru/formProduct/formService/v1/" name="formService"
+                  targetNamespace="http://emias.mos.ru/formProduct/formService/v1/">
+
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="http://emias.mos.ru/system/v1/userContext/"
+                       schemaLocation="../../../v1/xsd/core/emias.system.v1.userContext.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/system/v1/faults/"
+                       schemaLocation="../../../v1/xsd/core/emias.system.v1.faults.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/formProduct/formService/v1/types/"
+                       schemaLocation="formProduct.formService.v1.types.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="fault">
+        <wsdl:part name="body" element="nsf:fault"/>
+    </wsdl:message>
+    <wsdl:message name="userContext">
+        <wsdl:part name="userContext" element="uctx:userContext"/>
+    </wsdl:message>
+    <wsdl:message name="subscribeFormInput">
+        <wsdl:part name="body" element="ns1:subscribeFormRequest"/>
+    </wsdl:message>
+    <wsdl:message name="subscribeFormOutput">
+        <wsdl:part name="body" element="ns1:subscribeFormResponse"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchInput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchRequest"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchOutput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchResponse"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchFromGlobalIdInput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchFromGlobalIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchFromGlobalIdOutput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchFromGlobalIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchFromGlobalIdXsdInput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchFromGlobalIdXsdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="phpSphinxSearchFromGlobalIdXsdOutput">
+        <wsdl:part name="body" element="ns1:phpSphinxSearchFromGlobalIdXsdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getFormsInput">
+        <wsdl:part name="body" element="ns1:getFormsRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getFormsOutput">
+        <wsdl:part name="body" element="ns1:getFormsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getFieldsByFormIdInput">
+        <wsdl:part name="body" element="ns1:getFieldsByFormIdRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getFieldsByFormIdOutput">
+        <wsdl:part name="body" element="ns1:getFieldsByFormIdResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="formServicePortType">
+        <wsdl:operation name="subscription">
+            <wsdl:input message="tns:subscribeFormInput"/>
+            <wsdl:output message="tns:subscribeFormOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="searchByText">
+            <wsdl:input message="tns:phpSphinxSearchInput"/>
+            <wsdl:output message="tns:phpSphinxSearchOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="searchByGlobalId">
+            <wsdl:input message="tns:phpSphinxSearchFromGlobalIdInput"/>
+            <wsdl:output message="tns:phpSphinxSearchFromGlobalIdOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="generateXsdEntity">
+            <wsdl:input message="tns:phpSphinxSearchFromGlobalIdXsdInput"/>
+            <wsdl:output message="tns:phpSphinxSearchFromGlobalIdXsdOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getForms">
+            <wsdl:input message="tns:getFormsInput"/>
+            <wsdl:output message="tns:getFormsOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getFieldsByFormId">
+            <wsdl:input message="tns:getFieldsByFormIdInput"/>
+            <wsdl:output message="tns:getFieldsByFormIdOutput"/>
+            <wsdl:fault name="fault" message="tns:fault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="formServiceBinding" type="tns:formServicePortType">
+        <wsp:PolicyReference URI="#authPolicy"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation name="subscription">
+            <soap:operation soapAction="subscription"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="searchByText">
+            <soap:operation soapAction="searchByText"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="searchByGlobalId">
+            <soap:operation soapAction="searchByGlobalId"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="generateXsdEntity">
+            <soap:operation soapAction="generateXsdEntity"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="getForms">
+            <soap:operation soapAction="getForms"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <wsdl:operation name="getFieldsByFormId">
+            <soap:operation soapAction="getFieldsByFormId"/>
+            <wsdl:input>
+                <soap:header message="tns:userContext" part="userContext" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="formService">
+        <wsdl:port name="formServicePort" binding="tns:formServiceBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+
+    <wsp:Policy wsu:Id="authPolicy" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+            <wsp:Policy>
+                <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                    <wsp:Policy>
+                        <sp:NoPassword/>
+                    </wsp:Policy>
+                </sp:UsernameToken>
+            </wsp:Policy>
+        </sp:SupportingTokens>
+    </wsp:Policy>
+</wsdl:definitions>

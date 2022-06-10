@@ -1,0 +1,245 @@
+<!--  edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by DIT (DIT)  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+    <xs:include schemaLocation="emias.core.v1.xsd"/>
+    <!-- Basic types -->
+    <xs:simpleType name="AttributeName">
+        <xs:annotation>
+            <xs:documentation>Наименование атрибута поиска</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="Conjunction">
+        <xs:annotation>
+            <xs:documentation>Предикат</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="and">
+                <xs:annotation>
+                    <xs:documentation>Логическое умножение (конъюнкции)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="or">
+                <xs:annotation>
+                    <xs:documentation>Логическое сложение (дизъюнкции)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FilterOperator">
+        <xs:annotation>
+            <xs:documentation>Оператор сравнения</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EQUAL">
+                <xs:annotation>
+                    <xs:documentation>Равно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NOT_EQUAL">
+                <xs:annotation>
+                    <xs:documentation>Не равно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IN">
+                <xs:annotation>
+                    <xs:documentation>Совпадение со значением в списке</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NOT_IN">
+                <xs:annotation>
+                    <xs:documentation>Остутствие со значением в списке</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LIKE">
+                <xs:annotation>
+                    <xs:documentation>Не строгое соответствие</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LLIKE">
+                <xs:annotation>
+                    <xs:documentation>Не строгое соответствие - Начинается со значения</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RLIKE">
+                <xs:annotation>
+                    <xs:documentation>Не строгое соответствие - Заканчивается</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LT">
+                <xs:annotation>
+                    <xs:documentation>Меньше</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LTE">
+                <xs:annotation>
+                    <xs:documentation>Меньше либо равно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GT">
+                <xs:annotation>
+                    <xs:documentation>Больше</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GTE">
+                <xs:annotation>
+                    <xs:documentation>Больше либо равно</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IS_NULL">
+                <xs:annotation>
+                    <xs:documentation>Значение null</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NOT_IS_NULL">
+                <xs:annotation>
+                    <xs:documentation>Значение не null</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="BETWEEN">
+                <xs:annotation>
+                    <xs:documentation>Определяет диапазон для проверки</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NOT_BETWEEN">
+                <xs:annotation>
+                    <xs:documentation>Определяет диапазон для проверки</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Критерии поиска</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="filter" type="ViewCriteria">
+                <xs:annotation>
+                    <xs:documentation>Параметры фильтрации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" ref="sortOrder"/>
+            <!-- <xs:element maxOccurs="unbounded" minOccurs="0" name="findAttribute" type="xs:string"/> -->
+            <xs:element minOccurs="0" ref="pagingOptions"/>
+            <xs:element minOccurs="0" ref="options">
+                <xs:annotation>
+                    <xs:documentation>Параметры вызова метода</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ViewCriteria">
+        <xs:annotation>
+            <xs:documentation>Условия фильтрации</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element default="and" name="conjunction" type="Conjunction">
+                <xs:annotation>
+                    <xs:documentation>Предикат</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="group" type="ViewCriteriaRow">
+                <xs:annotation>
+                    <xs:documentation>Группа операций</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- <xs:element name="nested" type="ViewCriteria" minOccurs="0" maxOccurs="unbounded"/> -->
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ViewCriteriaRow">
+        <xs:annotation>
+            <xs:documentation>Операции фильтрации</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element default="and" name="conjunction" type="Conjunction">
+                <xs:annotation>
+                    <xs:documentation>Предикат</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="false" minOccurs="0" name="upperCaseCompare" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Сравнение строк в верхнем регистре</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="item" type="ViewCriteriaItem">
+                <xs:annotation>
+                    <xs:documentation>Операции сравнения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ViewCriteriaItem">
+        <xs:annotation>
+            <xs:documentation>Операция сравнения</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element default="and" minOccurs="0" name="conjunction" type="Conjunction">
+                <xs:annotation>
+                    <xs:documentation>Предикат</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="false" minOccurs="0" name="upperCaseCompare" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Сравнение строк в верхнем регистре</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="attribute" type="AttributeName">
+                <xs:annotation>
+                    <xs:documentation>Наименование аттрибута поиска</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="operator" type="FilterOperator">
+                <xs:annotation>
+                    <xs:documentation>Оператор сравнения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:sequence>
+                <xs:element maxOccurs="100" minOccurs="0" name="value" type="xs:anySimpleType">
+                    <xs:annotation>
+                        <xs:documentation>Значение для сравнения</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <!-- <xs:element name="nested" type="ViewCriteria"/> -->
+            </xs:sequence>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SortOrder">
+        <xs:annotation>
+            <xs:documentation>Перечень параметров сортировки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="4" name="sortAttribute" type="SortAttribute">
+                <xs:annotation>
+                    <xs:documentation>Условия сортировки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SortAttribute">
+        <xs:annotation>
+            <xs:documentation>Условие сортировки</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="attribute" type="AttributeName">
+                <xs:annotation>
+                    <xs:documentation>Поле для сортировки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="false" name="descending" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Направление сортировки</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="findCriteria" type="FindCriteria">
+        <xs:annotation>
+            <xs:documentation>Элемент с критериями поиска</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="sortOrder" type="SortOrder">
+        <xs:annotation>
+            <xs:documentation>Элемент с параметрами сортировки</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

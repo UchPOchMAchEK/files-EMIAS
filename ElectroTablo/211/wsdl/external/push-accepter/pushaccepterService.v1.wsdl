@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://emias.mos.ru/pushaccepterProduct/pushaccepterService/v1/" name="pushaccepterService"
+                  xmlns:ns1="http://emias.mos.ru/pushaccepterProduct/pushaccepterService/v1/types/"
+                  targetNamespace="http://emias.mos.ru/pushaccepterProduct/pushaccepterService/v1/">
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="http://emias.mos.ru/system/v1/userContext/"
+                       schemaLocation="../../v1/xsd/core/emias.system.v1.userContext.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/system/v1/faults/" schemaLocation="../../v1/xsd/core/emias.system.v1.faults.xsd"/>
+            <xs:import namespace="http://emias.mos.ru/pushaccepterProduct/pushaccepterService/v1/types/"
+                       schemaLocation="pushaccepterProduct.pushaccepterService.v1.types.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="getChangeElement">
+        <wsdl:part name="getChangeElement" element="ns1:ChangeElement"/>
+    </wsdl:message>
+    <wsdl:message name="getResponseElement">
+        <wsdl:part name="getResponseElement" element="ns1:ResponseElement"/>
+    </wsdl:message>
+
+    <wsdl:portType name="pushaccepterServicePortType">
+        <wsdl:operation name="get">
+            <wsdl:input message="tns:getChangeElement" name="getChangeElement"/>
+            <wsdl:output message="tns:getResponseElement" name="getResponseElement"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="getSoap" type="tns:pushaccepterServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="get">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getChangeElement">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getResponseElement">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="getService">
+        <wsdl:port binding="tns:getSoap" name="getSoap">
+            <soap:address location="http://localhost:8080/emias/mse/v1/pushaccepterService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

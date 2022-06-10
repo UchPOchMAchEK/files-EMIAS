@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://emias.mos.ru/selfAppointment/selfAppointmentService/v1/"
+           targetNamespace="http://emias.mos.ru/selfAppointment/selfAppointmentService/v1/" version="1.2">
+    <xs:element name="esuAppointment">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="event" type="tns:Event"/>
+                <xs:element name="patient" type="tns:Patient"/>
+                <xs:element name="appointment" type="tns:Appointment"/>
+                <xs:element name="availableResource" type="tns:AvailableResource"/>
+                <xs:element name="complexResource" type="tns:ComplexResource"/>
+                <xs:element name="lpu" type="tns:Lpu"/>
+                <xs:choice>
+                    <xs:element name="doctor" type="tns:Doctor">
+                        <xs:annotation>
+                            <xs:documentation>(для записи к специалисту)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ldp" type="tns:Ldp">
+                        <xs:annotation>
+                            <xs:documentation>(для записи на ЛДП)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="samplingType" type="tns:SamplingType">
+                        <xs:annotation>
+                            <xs:documentation>(для записи на взятие БМ)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Event">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД события из AUDIT_EVENT</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="type" type="tns:EventType">
+                <xs:annotation>
+                    <xs:documentation>Тип события</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="time" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата и время события</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="system" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Система-инициатор события</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="login" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Логин пользователя, инициировавшего событие</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="EventType">
+        <xs:annotation>
+            <xs:documentation>Тип события</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CREATE">
+                <xs:annotation>
+                    <xs:documentation>Создание</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHANGE">
+                <xs:annotation>
+                    <xs:documentation>Изменение</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CANCEL">
+                <xs:annotation>
+                    <xs:documentation>Отмена</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Patient">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД пациента</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="oms" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Номер полиса ОМС (включая серию)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name12" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Имя Отчество</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="phone" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер мобильного телефона</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="email" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Адрес электроннной почты</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Appointment">
+        <xs:annotation>
+            <xs:documentation>Общие сведения о записи</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="startTime" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата и время начала записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="endTime" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Дата и время окончания записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="number" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Номер записи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="oldStartTime" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Дата и время начала записи до переноса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="referralId" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ИД направления, по которому создана запись</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="rejectedId" type="xs:long" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>ИД записи, отмененной в процессе переноса</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="speciality" type="tns:Speciality" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Специальность, к которой сделана Запись</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AvailableResource">
+        <xs:annotation>
+            <xs:documentation>Сведения о доступном ресурсе</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД ДР</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Наименование ДР</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ComplexResource">
+        <xs:annotation>
+            <xs:documentation>Сведения о комплексном ресурсе</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД КР</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="number" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Номер кабинета</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Адрес кабинета</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="roomId" type="xs:long" minOccurs="0" default="1">
+                <xs:annotation>
+                    <xs:documentation>Индетификатор РИР</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Lpu">
+        <xs:annotation>
+            <xs:documentation>Сведения о принимающем ЛПУ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД ЛПУ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="shortName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Краткое наименование ЛПУ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="fullName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Полное наименование ЛПУ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="phone" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Телефон регистратуры</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Doctor">
+        <xs:annotation>
+            <xs:documentation>Сведения о враче</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="lastName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Фамилия</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="firstName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Имя</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="middleName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Отчество</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="speciality" type="tns:Speciality">
+                <xs:annotation>
+                    <xs:documentation>Специализация ДР</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Speciality">
+        <xs:annotation>
+            <xs:documentation>Специальность/Специализация/Групповая специальность</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД специальности/специализации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Наименование специальности/специализации</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Ldp">
+        <xs:annotation>
+            <xs:documentation>Сведения о ЛДП</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД ЛДП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Наименование ЛДП</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="examination" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Признак исследования</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SamplingType">
+        <xs:annotation>
+            <xs:documentation>Сведения о профиле взятия БМ</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:long">
+                <xs:annotation>
+                    <xs:documentation>ИД профиля взятия БМ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Наименование профиля взятия БМ</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

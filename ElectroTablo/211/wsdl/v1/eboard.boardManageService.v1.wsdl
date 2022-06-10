@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by misha (lovomon) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:uctx="http://emias.mos.ru/system/v1/userContext/" xmlns:nsf="http://emias.mos.ru/system/v1/faults/" xmlns:ns1="http://emias.mos.ru/eboard/boardManageService/v1/types/" xmlns:tns="http://emias.mos.ru/eboard/boardManageService/v1/" name="boardManageService" targetNamespace="http://emias.mos.ru/eboard/boardManageService/v1/">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import namespace="http://emias.mos.ru/system/v1/userContext/" schemaLocation="xsd/core/emias.system.v1.userContext.xsd"/>
+			<xs:import namespace="http://emias.mos.ru/system/v1/faults/" schemaLocation="xsd/core/emias.system.v1.faults.xsd"/>
+			<xs:import namespace="http://emias.mos.ru/eboard/boardManageService/v1/types/" schemaLocation="xsd/eboard.boardManageService.v1.types.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="fault">
+		<wsdl:documentation>Ошибка</wsdl:documentation>
+		<wsdl:part name="body" element="nsf:fault"/>
+	</wsdl:message>
+	<wsdl:message name="userContext">
+		<wsdl:documentation>Контекст пользователя</wsdl:documentation>
+		<wsdl:part name="userContext" element="uctx:userContext"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardListInput">
+		<wsdl:part name="body" element="ns1:getBoardListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardListOutput">
+		<wsdl:part name="body" element="ns1:getBoardListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardInput">
+		<wsdl:part name="body" element="ns1:getBoardRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardOutput">
+		<wsdl:part name="body" element="ns1:getBoardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="createBoardInput">
+		<wsdl:part name="body" element="ns1:createBoardRequest"/>
+	</wsdl:message>
+	<wsdl:message name="createBoardOutput">
+		<wsdl:part name="body" element="ns1:createBoardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="updateBoardInput">
+		<wsdl:part name="body" element="ns1:updateBoardRequest"/>
+	</wsdl:message>
+	<wsdl:message name="updateBoardIOutput">
+		<wsdl:part name="body" element="ns1:updateBoardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="archiveBoardInput">
+		<wsdl:part name="body" element="ns1:archiveBoardRequest"/>
+	</wsdl:message>
+	<wsdl:message name="archiveBoardOutput">
+		<wsdl:part name="body" element="ns1:archiveBoardResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardInfoListInput">
+		<wsdl:part name="body" element="ns1:getBoardInfoListRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getBoardInfoListOutput">
+		<wsdl:part name="body" element="ns1:getBoardInfoListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="archiveBoardInfoInput">
+		<wsdl:part name="body" element="ns1:archiveBoardInfoRequest"/>
+	</wsdl:message>
+	<wsdl:message name="archiveBoardInfoOutput">
+		<wsdl:part name="body" element="ns1:archiveBoardInfoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="boardManageServicePortType">
+		<wsdl:operation name="getBoardList">
+			<wsdl:documentation>Метод для получения списка электронных табло</wsdl:documentation>
+			<wsdl:input message="tns:getBoardListInput"/>
+			<wsdl:output message="tns:getBoardListOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="getBoard">
+			<wsdl:documentation>Метод для получения электронного табло</wsdl:documentation>
+			<wsdl:input message="tns:getBoardInput"/>
+			<wsdl:output message="tns:getBoardOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="createBoard">
+			<wsdl:documentation>Метод для создания электронного табло</wsdl:documentation>
+			<wsdl:input message="tns:createBoardInput"/>
+			<wsdl:output message="tns:createBoardOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="updateBoard">
+			<wsdl:documentation>Метод для обновления электронного табло</wsdl:documentation>
+			<wsdl:input message="tns:updateBoardInput"/>
+			<wsdl:output message="tns:updateBoardIOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="archiveBoard">
+			<wsdl:documentation>Метод для удаления(архивации) электронного табло</wsdl:documentation>
+			<wsdl:input message="tns:archiveBoardInput"/>
+			<wsdl:output message="tns:archiveBoardOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="getBoardInfoList">
+			<wsdl:documentation>Метод получения изменений для каждого электронного табло из списка в МУ
+            </wsdl:documentation>
+			<wsdl:input message="tns:getBoardInfoListInput"/>
+			<wsdl:output message="tns:getBoardInfoListOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="archiveBoardInfo">
+			<wsdl:documentation>Метод отмены запланированных изменений электронного табло</wsdl:documentation>
+			<wsdl:input message="tns:archiveBoardInfoInput"/>
+			<wsdl:output message="tns:archiveBoardInfoOutput"/>
+			<wsdl:fault name="fault" message="tns:fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="boardManageServiceBinding" type="tns:boardManageServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getBoardList">
+			<soap:operation soapAction="getBoardList" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getBoard">
+			<soap:operation soapAction="getBoard" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="createBoard">
+			<soap:operation soapAction="createBoard" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="updateBoard">
+			<soap:operation soapAction="updateBoard" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="archiveBoard">
+			<soap:operation soapAction="archiveBoard" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getBoardInfoList">
+			<soap:operation soapAction="getBoardInfoList" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="archiveBoardInfo">
+			<soap:operation soapAction="archiveBoardInfo" soapActionRequired="true"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:userContext" part="userContext" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="boardManageService">
+		<wsdl:documentation>Сервис для работы с электронным табло</wsdl:documentation>
+		<wsdl:port name="boardManageServicePortType" binding="tns:boardManageServiceBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

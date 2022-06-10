@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by MESMERiZE (MSM) -->
+<xs:schema xmlns:tns="http://emias.mos.ru/eboard/boardManageService/v1/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/eboard/core/v1/" targetNamespace="http://emias.mos.ru/eboard/boardManageService/v1/types/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v1/" schemaLocation="eboard.core.v1.xsd"/>
+	<!--Custom type-->
+	<xs:complexType name="CreateOrUpdateBoardParameters">
+		<xs:annotation>
+			<xs:documentation>Параметры для создания/обновления Сущности "Электронное табло"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="status">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ACTIVE"/>
+						<xs:enumeration value="ARCHIVE"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="archiveDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата архивации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rooms" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Коллекция "Кабинет"</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="room" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Кабинет</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="number" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>Номер кабинета</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:choice>
+										<xs:element name="rirRoomId" type="core:ID">
+											<xs:annotation>
+												<xs:documentation>Идентификатор кабинета владельцем владельцем которого
+                                                    является другой продукт ЕМИАС(РИР.2)
+                                                </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="svmrLocationId" type="core:ID">
+											<xs:annotation>
+												<xs:documentation>Идентификатор кабинета владельцем владельцем которого
+                                                    является другой продукт ЕМИАС(СВМР.2)
+                                                </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+									<xs:element name="isAdded" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>Признак добавления кабинета</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="isDeleted" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>Признак удаления кабинета</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="boardInfo">
+				<xs:annotation>
+					<xs:documentation>Информация о табло</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>Параметры для создания/обновления Сущности "Информация о табло" / Изменения в
+                            табло
+                        </xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="activationDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Дата активация инфомрации о табло</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="addressPointId" type="core:ID" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Идентификатор объекта БТИ(ИД здания)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="name" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Наименование Электронного табло</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="muId" type="core:ID">
+							<xs:annotation>
+								<xs:documentation>Идентификатор медицинского учреждения</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="deviceName" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Наименование устройства</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="textForPatients" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Текст сообщения для пациентов, неявившихся на прием</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="id" type="core:ID" use="optional">
+						<xs:annotation>
+							<xs:documentation>Идентификатор Сущности "Информация о табло" / Изменения в табло
+                            </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--List Page-->
+	<xs:complexType name="BoardListResultPage">
+		<xs:annotation>
+			<xs:documentation>Результирующая выборка для метода getBoardList</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingResults">
+				<xs:sequence>
+					<xs:element name="board" type="core:BoardExtension" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BoardInfoListResultPage">
+		<xs:annotation>
+			<xs:documentation>Результирующая выборка для метода getBoardInfoList</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingResults">
+				<xs:sequence>
+					<xs:element name="boardInfo" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="core:BoardInfoShort">
+									<xs:sequence>
+										<xs:element name="room" type="core:RoomShortWithRelevanceAttribute" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Номер кабинета</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="boardId" type="core:ID">
+											<xs:annotation>
+												<xs:documentation>Идентификатор сущности "Электронное табло"
+                                                </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="isPlannedActiveBoardInfo" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Признак активного запланированного изменения
+                                                    информации об электронном табло
+                                                </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--request & response-->
+	<!--метод getBoardList-->
+	<xs:element name="getBoardListRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getBoardList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="muId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор МУ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+				<xs:element ref="core:pagingOptions"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getBoardListResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getBoardList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="tns:BoardListResultPage"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод getBoard-->
+	<xs:element name="getBoardRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="boardId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getBoardResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="board" type="core:BoardExtension"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод createBoard-->
+	<xs:element name="createBoardRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода createBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="board" type="tns:CreateOrUpdateBoardParameters"/>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createBoardResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода createBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="board" type="core:BoardExtension"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод updateBoard-->
+	<xs:element name="updateBoardRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода updateBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="board" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="tns:CreateOrUpdateBoardParameters">
+								<xs:attribute name="id" type="core:ID" use="required">
+									<xs:annotation>
+										<xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateBoardResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода updateBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="core:result"/>
+				<xs:element name="boardInfoId" type="core:ID" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Идентификатор Сущности "Информация о табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--метод archiveBoard-->
+	<xs:element name="archiveBoardRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода archiveBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="boardId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="archiveBoardResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода archiveBoard</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="core:result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--Метод получения изменений для каждого электронного табло из списка в МУ-->
+	<xs:element name="getBoardInfoListRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода getBoardInfoList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="muId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор медицинского учреждения</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="boardId" type="core:ID" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Электронное табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="boardInfoId" type="core:ID" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Информация о табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="isPlannedActiveBoardInfo" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Признак активного запланированного изменения информации об электронном табло
+                        </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:pagingOptions"/>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getBoardInfoListResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода getBoardInfoList</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="tns:BoardInfoListResultPage"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--Метод отмены запланированных изменений электронного табло-->
+	<xs:element name="archiveBoardInfoRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры для метода archiveBoardInfo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="boardInfoId" type="core:ID">
+					<xs:annotation>
+						<xs:documentation>Идентификатор сущности "Информация о табло"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="canceledBoardInfo" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Признак отмененных изменений информации электронного табло</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="core:options" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="archiveBoardInfoResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры для метода archiveBoardInfo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="core:result"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
