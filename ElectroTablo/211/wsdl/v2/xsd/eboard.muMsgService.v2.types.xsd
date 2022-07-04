@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2018 rel. 2 sp1 (x64) (http://www.altova.com) by qweqwe (qweqwe) -->
+<xs:schema xmlns:tns="http://emias.mos.ru/eboard/muMsgService/v2/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:core="http://emias.mos.ru/eboard/core/v1/" xmlns:core2="http://emias.mos.ru/eboard/core/v2/" targetNamespace="http://emias.mos.ru/eboard/muMsgService/v2/types/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v1/" schemaLocation="../../v1/xsd/eboard.core.v1.xsd"/>
+	<xs:import namespace="http://emias.mos.ru/eboard/core/v2/" schemaLocation="eboard.core.v2.xsd"/>
+	<!--Метод mfCreate-->
+	<xs:element name="mfCreateRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры mfCreate</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="mfCreateResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры mfCreate</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Метод mfChange-->
+	<xs:element name="mfChangeRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры mfChange</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="mfChangeResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры mfChange</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Метод mfArchive-->
+	<xs:element name="mfArchiveRequest">
+		<xs:annotation>
+			<xs:documentation>Входные параметры mfArchive</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="mfArchiveResponse">
+		<xs:annotation>
+			<xs:documentation>Выходные параметры mfArchive</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
